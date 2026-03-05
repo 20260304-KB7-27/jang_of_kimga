@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!--
+    외부 css 파일 참조를 위해 반드시 필요한 코드 
+     -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js" defer></script>
+  </head>
+
+  <body>
+    <h1>제목</h1>
+    <form>
+      <!-- <form id="joinForm"> -->
+      <!-- <table width="400" border="1"> -->
+      <table border="1">
+        <tr>
+          <th>아이디</th>
+          <td><input type="text" name="id" size="12" maxlength="12" /></td>
+        </tr>
+        <tr>
+          <th>비밀번호</th>
+          <td>
+            <input type="password" name="passwd" size="12" maxlength="12" />
+          </td>
+        </tr>
+        <tr>
+          <th>이름</th>
+          <td><input type="text" name="name" size="12" maxlength="12" /></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input
+              type="button"
+              id="btnJoin"
+              name="join"
+              value="가입"
+              onclick="test()"
+            />
+            <input type="reset" name="cancel" value="취소" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
