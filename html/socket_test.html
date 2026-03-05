@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <title>1:1 Private Chat</title>
+    <style>
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages li {
+        padding: 8px;
+        margin-bottom: 5px;
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="room-selection">
+      <input id="room-input" placeholder="방 이름 입력 (예: secret123)" />
+      <button onclick="joinRoom()">입장하기</button>
+    </div>
+
+    <div id="chat-area" style="display: none">
+      <h3 id="room-title"></h3>
+      <ul id="messages"></ul>
+      <form id="form">
+        <input id="input" autocomplete="off" /><button>전송</button>
+      </form>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io('http://10.10.0.40:3000');
+      let currentRoom = '';
+
+      function joinRoom() {
+        const roomInput = document.getElementById('room-input');
+        if (roomInput.value) {
+          currentRoom = roomInput.value;
+          socket.emit('join room', currentRoom);
+
+          document.getElementById('room-selection').style.display = 'none';
+          document.getElementById('chat-area').style.display = 'block';
+          document.getElementById('room-title').innerText =
+            `Room: ${currentRoom}`;
+        }
+      }
+
+      const form = document.getElementById('form');
+      const input = document.getElementById('input');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (input.value && currentRoom) {
+          socket.emit('chat message', { room: currentRoom, msg: input.value });
+          input.value = '';
+        }
+      });
+
+      socket.on('chat message', (msg) => {
+        const item = document.createElement('li');
+        item.textContent = msg;
+        document.getElementById('messages').appendChild(item);
+      });
+    </script>
+  </body>
+</html>
