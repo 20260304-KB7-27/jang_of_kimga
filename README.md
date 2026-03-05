@@ -1,4 +1,27 @@
-정적DB(JSON만 사용가능)
+# 1vs1 Quiz Battle
+
+> Socket.IO 기반 실시간 1대1 퀴즈 대결 게임
+
+## 기술 스택
+
+| 구분 | 기술 |
+|------|------|
+| Server | Node.js, Express |
+| 실시간 통신 | Socket.IO |
+| Database | JSON (정적 DB) |
+| Front-end | HTML, CSS, JS |
+
+## 실행 방법
+
+```bash
+npm install
+node server.js
+```
+
+접속(로컬): `http://localhost:3000/quiz`
+접속(외부): `http://IPv4주소:3000/quiz`
+
+## 기획 메모
 
 메인 기능
 
