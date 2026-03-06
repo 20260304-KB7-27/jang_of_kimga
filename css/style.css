@@ -30,6 +30,16 @@ h6은 나레이션 또는 자막용 입니다!
   text-align: center;
 }
 
+/* 호성이형 담당*/
+.container {
+  background-color: #0f172a;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+}
+
 .container > div {
   background-color: #334155;
 }
@@ -67,3 +77,56 @@ div > .info-input {
 #notification {
   /* display: none; */
 }
+
+/* 메인 화면 안내사항 */
+
+#header {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  height: 80px;
+  top: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  background-color: #1e293b;
+  color: white;
+}
+
+.logo-area {
+  font-size: 3em;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.logo-area img {
+  max-height: 70px;
+  width: auto;
+  margin-right: 12px;
+}
+
+.user-name {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 3em;
+  margin-left: auto;
+  margin-right: 20px;
+}
+/* #footer {
+  font-size: 5em;
+  text-align: center;
+  position: fixed;
+  height: 80px;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+} */
+
+/* #footer {
+  color: white;
+  background-color: navy;
+} */
