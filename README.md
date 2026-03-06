@@ -51,8 +51,8 @@ UI 컨셉 (피그마)
 https://www.figma.com/design/rEaH0VZwjWMRgCe6MsMTuA/quiz_%ED%99%94%EB%A9%B4-%EC%B4%88%EC%95%88?node-id=0-1&t=OnNW8R8iWWT1uhiv-1
 문제출제 4지선다 (오답까지 넣어서) [현지]
 main page html [호성]
-로그인 page [호성]
-회원 가입 page [호성]
+로그인 page
+회원 가입 page
 -=> 코드 룰 정립
 게임 실행 page
 게임 결과 page
@@ -411,7 +411,7 @@ D. `<field>`
 라디오 버튼을 만드는 input 타입은?
 
 A. checkbox  
-B. radio  
+B. radcio --> 오타인듯?
 C. select  
 D. option
 

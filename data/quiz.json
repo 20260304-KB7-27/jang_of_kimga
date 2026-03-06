@@ -1,13 +1,248 @@
 [
-    {
-        "id": 1,
-        "question": "대한민국의 수도는?",
-        "options": [
-            "부산",
-            "서울",
-            "인천",
-            "대전"
-        ],
-        "answer": 1
-    }
+  {
+    "id": 1,
+    "question": "HTML5 문서를 선언하는 올바른 코드는?",
+    "options": [
+      "<html5>",
+      "<!DOCTYPE html>",
+      "<doctype html>",
+      "<document html>"
+    ],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 2,
+    "question": "웹페이지 제목이 브라우저 탭에 표시되도록 하는 태그는?",
+    "options": ["<header>", "<title>", "<meta>", "<head>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 3,
+    "question": "HTML 문서의 가장 큰 제목 태그는?",
+    "options": ["<h1>", "<header>", "<title>", "<h0>"],
+    "answer": 1,
+    "level": 1
+  },
+
+  {
+    "id": 4,
+    "question": "본문의 단락을 나타내는 태그는?",
+    "options": ["<text>", "<p>", "<section>", "<content>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 5,
+    "question": "줄바꿈을 만드는 태그는?",
+    "options": ["<lb>", "<br>", "<newline>", "<break>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 6,
+    "question": "수평선을 만드는 태그는?",
+    "options": ["<line>", "<hr>", "<rule>", "<head>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 7,
+    "question": "웹페이지 링크를 만드는 태그는?",
+    "options": ["<link>", "<a>", "<nav>", "<href>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 8,
+    "question": "`<a>` 태그에서 이동할 주소를 지정하는 속성은?",
+    "options": ["<src>", "<href>", "<link>", "<target>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 9,
+    "question": "순서가 없는 목록 태그는?",
+    "options": ["<ul>", "<ol>", "<li>", "<list>"],
+    "answer": 1,
+    "level": 1
+  },
+
+  {
+    "id": 10,
+    "question": "목록 항목을 만드는 태그는?",
+    "options": ["<item>", "<li>", "<list>", "<ul>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 11,
+    "question": "HTML에서 이미지를 삽입하는 태그는?",
+    "options": ["<image>", "<img>", "<picture>", "<media>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 12,
+    "question": "이미지 파일 경로를 지정하는 속성은?",
+    "options": ["<href>", "<src>", "<path>", "<url>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 13,
+    "question": "이미지가 없을 때 대체 텍스트를 표시하는 속성은?",
+    "options": ["<title>", "<alt>", "<description>", "<text>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 14,
+    "question": "폼 데이터를 서버로 전송하는 태그는?",
+    "options": ["<input>", "<form>", "<submit>", "<send>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 15,
+    "question": "폼 데이터를 전송할 URL을 지정하는 속성은?",
+    "options": ["<method>", "<action>", "<target>", "<name>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 16,
+    "question": "GET 방식 특징은?",
+    "options": [
+      "데이터가 URL에 포함된다",
+      "데이터가 body에 저장된다",
+      "항상 암호화된다",
+      "파일 업로드에 사용된다"
+    ],
+    "answer": 1,
+    "level": 1
+  },
+
+  {
+    "id": 17,
+    "question": "POST 방식 특징은?",
+    "options": [
+      "데이터가 URL에 표시된다",
+      "데이터가 body에 포함된다",
+      "데이터 길이 매우 제한된다",
+      "캐시가 항상 사용된다"
+    ],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 18,
+    "question": "웹 브라우저가 서버에 보내는 메시지는?",
+    "options": ["<response>", "<request>", "<reply>", "<packet>"],
+    "answer": 2,
+    "level": 1
+  },
+
+  {
+    "id": 19,
+    "question": "다음 중 block 요소는?",
+    "options": ["<span>", "<div>", "<a>", "<img>"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 20,
+    "question": "다음 중 inline 요소는?",
+    "options": ["<div>", "<section>", "<span>", "<article>"],
+    "answer": 3,
+    "level": 2
+  },
+
+  {
+    "id": 21,
+    "question": "HTML에서 의미 있는 구조를 표현하는 태그를 무엇이라 하는가?",
+    "options": ["logic tag", "semantic tag", "style tag", "layout tag"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 22,
+    "question": "웹페이지의 머리 영역을 나타내는 태그는?",
+    "options": ["<nav>", "<header>", "<section>", "<aside>"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 23,
+    "question": "사이트 메뉴 영역을 나타내는 태그는?",
+    "options": ["<nav>", "<menu>", "<aside>", "<header>"],
+    "answer": 1,
+    "level": 2
+  },
+
+  {
+    "id": 24,
+    "question": "독립적인 콘텐츠 영역을 나타내는 태그는?",
+    "options": ["<article>", "<div>", "<header>", "<main>"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 25,
+    "question": "페이지 하단 영역을 나타내는 태그는?",
+    "options": ["<bottom>", "<footer>", "<end>", "<aside>"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 26,
+    "question": "HTML에서 여러 줄 텍스트 입력을 받는 태그는?",
+    "options": ["<input>", "<textarea>", "<text>", "<field>"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 27,
+    "question": "라디오 버튼을 만드는 input 타입은?",
+    "options": ["<checkbox>", "<radio>", "<select>", "<option>"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 28,
+    "question": "라디오 버튼을 하나의 그룹으로 묶는 속성은?",
+    "options": ["<id>", "<name>", "<class>", "<value>"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 29,
+    "question": "label 태그에서 input과 연결하는 속성은??",
+    "options": ["<id>", "<name>", "<for>", "type>"],
+    "answer": 3,
+    "level": 2
+  }
 ]
