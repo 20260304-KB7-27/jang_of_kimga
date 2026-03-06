@@ -1,3 +1,16 @@
+동현
+
+- socket + JS 게임 로직 작성
+
+현지
+
+- 게임 로직 CSS 정의
+
+호성 재한
+
+- 게임 직전 로직 및 CSS 정의
+  (이후 CSS JS 나누기)
+
 # 1vs1 Quiz Battle
 
 > Socket.IO 기반 실시간 1대1 퀴즈 대결 게임
