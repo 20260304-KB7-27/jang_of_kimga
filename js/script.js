@@ -1,3 +1,7 @@
+function GoLogin() {
+  location.href = 'html/joinForm.html';
+}
+
 function onWriteSubmit() {
   if ($('#creator_id').val().trim() == '') {
     var message = '아이디를 입력해 주세요.';
