@@ -7,10 +7,37 @@ body {
     sans-serif;
 }
 
+.container > div {
+  background-color: purple;
+}
+#room-selection {
+  color: red;
+}
+
+#waiting-area {
+  /* display: none; */
+}
+
+#quiz-area {
+  display: none;
+}
+
+#result-area {
+  display: none;
+}
+
+#notification {
+  display: none;
+}
+
 a {
   color: #00b7ff;
 }
 
 h1 {
   color: red;
+}
+
+#login {
+  /* visibility: hidden; */
 }
