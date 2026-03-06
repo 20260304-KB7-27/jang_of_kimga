@@ -10,7 +10,7 @@ const io = new Server(server);
 
 // ── 퀴즈 데이터 로드 ─────────────────────────────────
 const quizData = JSON.parse(
-  fs.readFileSync(path.join(__dirname, 'data', 'quiz.json'), 'utf-8')
+  fs.readFileSync(path.join(__dirname, 'data', 'quiz.json'), 'utf-8'),
 );
 
 // ── 방 상태 관리 ──────────────────────────────────────
@@ -167,7 +167,7 @@ io.on('connection', (socket) => {
 
     // 두 명 모두 답변했는데 둘 다 오답 → 다음 문제로
     const bothAnswered = room.players.every(
-      (pid) => room.answers[pid] !== undefined
+      (pid) => room.answers[pid] !== undefined,
     );
 
     if (bothAnswered) {
