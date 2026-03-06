@@ -1,15 +1,63 @@
+html,
 body {
-  padding: 50px;
-  font:
-    14px 'lucida Grande',
-    Helvetica,
-    Arial,
-    sans-serif;
+  font-family: 'Nanum Gothic', sans-serif;
+  color: #ffffff;
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  background-color: #0f172a;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  /* background-image: url('/assets/images/test.jpg'); */
+}
+
+/* 
+h6은 나레이션 또는 자막용 입니다!
+*/
+.container > h6 {
+  position: absolute;
+  top: 70%; /* 화면 기준 70% 아래 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: x-large;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* 호성이형 담당*/
+.container {
+  background-color: #0f172a;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
 }
 
 .container > div {
-  background-color: purple;
+  background-color: #334155;
 }
+
+div > .title {
+  font-size: 45px;
+  margin-left: 5%;
+  color: #ffffff;
+}
+div > .sub-title {
+  font-size: 25px;
+  margin-left: 5%;
+  color: #888888;
+}
+div > .info-input {
+  margin-left: 5%;
+}
+
 #room-selection {
   color: red;
 }
@@ -19,25 +67,66 @@ body {
 }
 
 #quiz-area {
-  display: none;
+  /* display: none; */
 }
 
 #result-area {
-  display: none;
+  /* display: none; */
 }
 
 #notification {
-  display: none;
+  /* display: none; */
 }
 
-a {
-  color: #00b7ff;
+/* 메인 화면 안내사항 */
+
+#header {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  height: 80px;
+  top: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  background-color: #1e293b;
+  color: white;
 }
 
-h1 {
-  color: red;
+.logo-area {
+  font-size: 3em;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
 }
 
-#login {
-  /* visibility: hidden; */
+.logo-area img {
+  max-height: 70px;
+  width: auto;
+  margin-right: 12px;
 }
+
+.user-name {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 3em;
+  margin-left: auto;
+  margin-right: 20px;
+}
+/* #footer {
+  font-size: 5em;
+  text-align: center;
+  position: fixed;
+  height: 80px;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+} */
+
+/* #footer {
+  color: white;
+  background-color: navy;
+} */
