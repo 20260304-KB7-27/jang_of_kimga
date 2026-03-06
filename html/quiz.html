@@ -4,37 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>1:1 퀴즈 대결</title>
-    <style>
-      #waiting-area {
-        display: none;
-      }
 
-      #quiz-area {
-        display: none;
-      }
-
-      #result-area {
-        display: none;
-      }
-
-      #notification {
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/script.js" defer></script>
   </head>
 
   <body>
     <div class="container">
       <!-- 알림 -->
       <div id="notification"></div>
-
-      <!-- 1) 방 입장 화면 -->
-      <div id="room-selection">
-        <h1>퀴즈 대결</h1>
-        <p>방 이름을 입력하고 상대를 기다리세요</p>
-        <input id="room-input" placeholder="방 이름 입력 (예: room1)" />
-        <button class="btn btn-primary" onclick="joinRoom()">입장하기</button>
-      </div>
 
       <!-- 2) 대기 화면 -->
       <div id="waiting-area">
