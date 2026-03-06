@@ -30,7 +30,6 @@ h6은 나레이션 또는 자막용 입니다!
   text-align: center;
 }
 
-/* 호성이형 담당*/
 .container {
   background-color: #0f172a;
   width: 100%;
@@ -83,7 +82,6 @@ div > .info-input {
 #header {
   display: flex;
   align-items: center;
-  position: fixed;
   height: 80px;
   top: 0;
   width: 100%;
