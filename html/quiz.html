@@ -35,16 +35,70 @@
 
       <!-- 3) 퀴즈 화면 -->
       <div id="quiz-area">
-        <div class="quiz-header">
-          <span class="quiz-progress" id="quiz-progress">1 / 5</span>
-          <span class="quiz-score" id="quiz-score">내 점수: 0</span>
-          <span class="opponentScore" id="opponentScore">상대 점수: 0</span>
+        <div class="battle-topbar">
+          <div class="battle-logo">
+            <div class="logo-circle">QUIZ</div>
+            <div class="logo-text">QUIZ BATTLE</div>
+          </div>
+
+          <div class="battle-info">
+            <span class="quiz-pill" id="room-name">Room #12</span>
+            <span class="quiz-pill" id="quiz-progress">1 / 5</span>
+            <span class="quiz-pill" id="quiz-score">내 점수: 0</span>
+            <span class="quiz-pill" id="opponentScore">상대 점수: 0</span>
+            <button class="top-hint-btn" id="hint-btn" type="button">
+              Hint 1회
+            </button>
+          </div>
         </div>
+
+        <div class="team-panel">
+          <div class="team-card left">
+            <div class="team-name" id="my-team-name">TEAM : 김가네 장씨 🔥</div>
+            <div class="team-score" id="my-team-score">Score: 0</div>
+
+            <div class="hp-wrap">
+              <div class="hp-label">MY HP</div>
+              <div class="hp-bar">
+                <div class="hp-fill my" id="my-hp"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vs-text">VS</div>
+
+          <div class="team-card right">
+            <div class="team-name" id="enemy-team-name">
+              TEAM : 장가네 김씨 🔥
+            </div>
+            <div class="team-score" id="enemy-team-score">Score: 0</div>
+
+            <div class="hp-wrap">
+              <div class="hp-label">ENEMY HP</div>
+              <div class="hp-bar">
+                <div class="hp-fill enemy" id="enemy-hp"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="question-card">
+          <div class="question-title">Question</div>
           <div class="question-text" id="question-text"></div>
+
+          <div class="options" id="options"></div>
+
+          <div class="control-row">
+            <button class="hint-btn" id="bottom-hint-btn" type="button">
+              힌트 사용
+            </button>
+            <button class="surrender-btn" id="surrender-btn" type="button">
+              항복
+            </button>
+          </div>
+
+          <div class="waiting-opponent" id="waiting-opponent"></div>
         </div>
-        <div class="options" id="options"></div>
-        <div class="waiting-opponent" id="waiting-opponent"></div>
       </div>
 
       <!-- 4) 결과 화면 -->
@@ -76,6 +130,11 @@
       let myScore = 0;
       let opponentScore = 0;
 
+      let myHP = 100;
+      let enemyHP = 100;
+      const hpDamage = 20;
+      let hintUsed = false;
+
       // ── 방 입장 ──────────────────────────────
       function joinRoom() {
         const input = document.getElementById('room-input');
@@ -90,12 +149,13 @@
 
       // ── 화면 전환 유틸 ───────────────────────
       function showScreen(screenId) {
-        ['room-selection', 'waiting-area', 'quiz-area', 'result-area'].forEach(
-          (id) => {
-            document.getElementById(id).style.display = 'none';
-          },
-        );
-        document.getElementById(screenId).style.display = 'block';
+        ['waiting-area', 'quiz-area', 'result-area'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.style.display = 'none';
+        });
+
+        const target = document.getElementById(screenId);
+        if (target) target.style.display = 'block';
       }
 
       function showNotification(msg, duration = 2000) {
@@ -106,6 +166,76 @@
           el.style.display = 'none';
         }, duration);
       }
+
+      function updateHP() {
+        const myHpEl = document.getElementById('my-hp');
+        const enemyHpEl = document.getElementById('enemy-hp');
+
+        if (myHpEl) myHpEl.style.width = `${myHP}%`;
+        if (enemyHpEl) enemyHpEl.style.width = `${enemyHP}%`;
+      }
+
+      function updateScoreText() {
+        document.getElementById('quiz-score').textContent = `내 점수: ${myScore}`;
+        document.getElementById('opponentScore').textContent =
+          `상대 점수: ${opponentScore}`;
+        document.getElementById('my-team-score').textContent = `Score: ${myScore}`;
+        document.getElementById('enemy-team-score').textContent =
+          `Score: ${opponentScore}`;
+      }
+
+      function resetBattleUI() {
+        myHP = 100;
+        enemyHP = 100;
+        hintUsed = false;
+        updateHP();
+        updateScoreText();
+
+        const hintTop = document.getElementById('hint-btn');
+        const hintBottom = document.getElementById('bottom-hint-btn');
+        if (hintTop) hintTop.disabled = false;
+        if (hintBottom) hintBottom.disabled = false;
+      }
+
+      function useHint() {
+        if (hintUsed) return;
+
+        const wrongButtons = [...document.querySelectorAll('.option-btn')].filter(
+          (btn) => !btn.classList.contains('correct') && !btn.disabled,
+        );
+
+        if (wrongButtons.length > 1) {
+          wrongButtons[0].style.visibility = 'hidden';
+          hintUsed = true;
+
+          const hintTop = document.getElementById('hint-btn');
+          const hintBottom = document.getElementById('bottom-hint-btn');
+          if (hintTop) hintTop.disabled = true;
+          if (hintBottom) hintBottom.disabled = true;
+        }
+      }
+
+      function surrenderGame() {
+        myHP = 0;
+        updateHP();
+        document.getElementById('waiting-opponent').textContent = '항복했습니다.';
+        document.querySelectorAll('.option-btn').forEach((btn) => {
+          btn.disabled = true;
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const hintTop = document.getElementById('hint-btn');
+        const hintBottom = document.getElementById('bottom-hint-btn');
+        const surrenderBtn = document.getElementById('surrender-btn');
+
+        if (hintTop) hintTop.addEventListener('click', useHint);
+        if (hintBottom) hintBottom.addEventListener('click', useHint);
+        if (surrenderBtn) surrenderBtn.addEventListener('click', surrenderGame);
+
+        updateHP();
+        updateScoreText();
+      });
 
       // ── 소켓 이벤트: 입장 / 대기 ─────────────
       socket.on('player joined', (data) => {
@@ -121,6 +251,8 @@
       socket.on('game start', (data) => {
         showNotification('게임 시작!');
         myScore = 0;
+        opponentScore = 0;
+        resetBattleUI();
       });
 
       // ── 소켓 이벤트: 새 문제 ──────────────────
@@ -130,11 +262,7 @@
         // 진행 상태 업데이트
         document.getElementById('quiz-progress').textContent =
           `${data.index + 1} / ${data.total}`;
-        document.getElementById('quiz-score').textContent =
-          `내 점수: ${myScore}`;
-
-        document.getElementById('opponentScore').textContent =
-          `상대 점수: ${opponentScore}`;
+        updateScoreText();
 
         // 문제 표시
         document.getElementById('question-text').textContent = data.question;
@@ -145,10 +273,16 @@
         data.options.forEach((option, idx) => {
           const btn = document.createElement('button');
           btn.className = 'option-btn';
-          btn.textContent = `${idx + 1}. ${option}`;
+          btn.textContent = `${String.fromCharCode(65 + idx)}. ${option}`;
           btn.onclick = () => submitAnswer(idx + 1);
           optionsEl.appendChild(btn);
         });
+
+        hintUsed = false;
+        const hintTop = document.getElementById('hint-btn');
+        const hintBottom = document.getElementById('bottom-hint-btn');
+        if (hintTop) hintTop.disabled = false;
+        if (hintBottom) hintBottom.disabled = false;
 
         // 대기 메시지 숨기기
         document.getElementById('waiting-opponent').textContent = '';
@@ -193,14 +327,20 @@
         // 누가 맞췄는지 표시
         if (data.winnerId === socket.id) {
           myScore++;
-          document.getElementById('quiz-score').textContent =
-            `내 점수: ${myScore}`;
+          enemyHP = Math.max(0, enemyHP - hpDamage);
+          updateHP();
+          updateScoreText();
+
           document.getElementById('waiting-opponent').textContent =
             '정답! 다음 문제로 이동합니다...';
         } else if (data.winnerId) {
+          opponentScore++;
+          myHP = Math.max(0, myHP - hpDamage);
+          updateHP();
+          updateScoreText();
+
           document.getElementById('waiting-opponent').textContent =
             '상대방이 먼저 맞췄습니다!';
-          opponentScore++;
         } else {
           document.getElementById('waiting-opponent').textContent =
             '둘 다 틀렸습니다! 다음 문제로 이동합니다...';
