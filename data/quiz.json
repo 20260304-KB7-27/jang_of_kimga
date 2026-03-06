@@ -2,6 +2,7 @@
   {
     "id": 1,
     "question": "HTML5 문서를 선언하는 올바른 코드는?",
+    "description": "",
     "options": [
       "<html5>",
       "<!DOCTYPE html>",
@@ -15,6 +16,7 @@
   {
     "id": 2,
     "question": "웹페이지 제목이 브라우저 탭에 표시되도록 하는 태그는?",
+    "description": "",
     "options": ["<header>", "<title>", "<meta>", "<head>"],
     "answer": 2,
     "level": 1
@@ -23,6 +25,7 @@
   {
     "id": 3,
     "question": "HTML 문서의 가장 큰 제목 태그는?",
+    "description": "",
     "options": ["<h1>", "<header>", "<title>", "<h0>"],
     "answer": 1,
     "level": 1
@@ -31,6 +34,7 @@
   {
     "id": 4,
     "question": "본문의 단락을 나타내는 태그는?",
+    "description": "",
     "options": ["<text>", "<p>", "<section>", "<content>"],
     "answer": 2,
     "level": 1
@@ -39,6 +43,7 @@
   {
     "id": 5,
     "question": "줄바꿈을 만드는 태그는?",
+    "description": "",
     "options": ["<lb>", "<br>", "<newline>", "<break>"],
     "answer": 2,
     "level": 1
@@ -47,6 +52,7 @@
   {
     "id": 6,
     "question": "수평선을 만드는 태그는?",
+    "description": "",
     "options": ["<line>", "<hr>", "<rule>", "<head>"],
     "answer": 2,
     "level": 1
@@ -55,6 +61,7 @@
   {
     "id": 7,
     "question": "웹페이지 링크를 만드는 태그는?",
+    "description": "",
     "options": ["<link>", "<a>", "<nav>", "<href>"],
     "answer": 2,
     "level": 1
@@ -63,6 +70,7 @@
   {
     "id": 8,
     "question": "`<a>` 태그에서 이동할 주소를 지정하는 속성은?",
+    "description": "",
     "options": ["<src>", "<href>", "<link>", "<target>"],
     "answer": 2,
     "level": 1
@@ -71,6 +79,7 @@
   {
     "id": 9,
     "question": "순서가 없는 목록 태그는?",
+    "description": "",
     "options": ["<ul>", "<ol>", "<li>", "<list>"],
     "answer": 1,
     "level": 1
@@ -79,6 +88,7 @@
   {
     "id": 10,
     "question": "목록 항목을 만드는 태그는?",
+    "description": "",
     "options": ["<item>", "<li>", "<list>", "<ul>"],
     "answer": 2,
     "level": 1
@@ -87,6 +97,7 @@
   {
     "id": 11,
     "question": "HTML에서 이미지를 삽입하는 태그는?",
+    "description": "",
     "options": ["<image>", "<img>", "<picture>", "<media>"],
     "answer": 2,
     "level": 1
@@ -95,6 +106,7 @@
   {
     "id": 12,
     "question": "이미지 파일 경로를 지정하는 속성은?",
+    "description": "",
     "options": ["<href>", "<src>", "<path>", "<url>"],
     "answer": 2,
     "level": 1
@@ -103,6 +115,7 @@
   {
     "id": 13,
     "question": "이미지가 없을 때 대체 텍스트를 표시하는 속성은?",
+    "description": "",
     "options": ["<title>", "<alt>", "<description>", "<text>"],
     "answer": 2,
     "level": 1
@@ -111,6 +124,7 @@
   {
     "id": 14,
     "question": "폼 데이터를 서버로 전송하는 태그는?",
+    "description": "",
     "options": ["<input>", "<form>", "<submit>", "<send>"],
     "answer": 2,
     "level": 1
@@ -119,6 +133,7 @@
   {
     "id": 15,
     "question": "폼 데이터를 전송할 URL을 지정하는 속성은?",
+    "description": "",
     "options": ["<method>", "<action>", "<target>", "<name>"],
     "answer": 2,
     "level": 1
@@ -127,6 +142,7 @@
   {
     "id": 16,
     "question": "GET 방식 특징은?",
+    "description": "",
     "options": [
       "데이터가 URL에 포함된다",
       "데이터가 body에 저장된다",
@@ -140,6 +156,7 @@
   {
     "id": 17,
     "question": "POST 방식 특징은?",
+    "description": "",
     "options": [
       "데이터가 URL에 표시된다",
       "데이터가 body에 포함된다",
@@ -153,6 +170,7 @@
   {
     "id": 18,
     "question": "웹 브라우저가 서버에 보내는 메시지는?",
+    "description": "",
     "options": ["<response>", "<request>", "<reply>", "<packet>"],
     "answer": 2,
     "level": 1
@@ -161,6 +179,7 @@
   {
     "id": 19,
     "question": "다음 중 block 요소는?",
+    "description": "",
     "options": ["<span>", "<div>", "<a>", "<img>"],
     "answer": 2,
     "level": 2
@@ -169,6 +188,7 @@
   {
     "id": 20,
     "question": "다음 중 inline 요소는?",
+    "description": "",
     "options": ["<div>", "<section>", "<span>", "<article>"],
     "answer": 3,
     "level": 2
@@ -177,6 +197,7 @@
   {
     "id": 21,
     "question": "HTML에서 의미 있는 구조를 표현하는 태그를 무엇이라 하는가?",
+    "description": "",
     "options": ["logic tag", "semantic tag", "style tag", "layout tag"],
     "answer": 2,
     "level": 2
@@ -185,6 +206,7 @@
   {
     "id": 22,
     "question": "웹페이지의 머리 영역을 나타내는 태그는?",
+    "description": "",
     "options": ["<nav>", "<header>", "<section>", "<aside>"],
     "answer": 2,
     "level": 2
@@ -193,6 +215,7 @@
   {
     "id": 23,
     "question": "사이트 메뉴 영역을 나타내는 태그는?",
+    "description": "",
     "options": ["<nav>", "<menu>", "<aside>", "<header>"],
     "answer": 1,
     "level": 2
@@ -201,14 +224,16 @@
   {
     "id": 24,
     "question": "독립적인 콘텐츠 영역을 나타내는 태그는?",
+    "description": "",
     "options": ["<article>", "<div>", "<header>", "<main>"],
-    "answer": 2,
+    "answer": 1,
     "level": 2
   },
 
   {
     "id": 25,
     "question": "페이지 하단 영역을 나타내는 태그는?",
+    "description": "",
     "options": ["<bottom>", "<footer>", "<end>", "<aside>"],
     "answer": 2,
     "level": 2
@@ -217,6 +242,7 @@
   {
     "id": 26,
     "question": "HTML에서 여러 줄 텍스트 입력을 받는 태그는?",
+    "description": "",
     "options": ["<input>", "<textarea>", "<text>", "<field>"],
     "answer": 2,
     "level": 2
@@ -225,6 +251,7 @@
   {
     "id": 27,
     "question": "라디오 버튼을 만드는 input 타입은?",
+    "description": "",
     "options": ["<checkbox>", "<radio>", "<select>", "<option>"],
     "answer": 2,
     "level": 2
@@ -233,6 +260,7 @@
   {
     "id": 28,
     "question": "라디오 버튼을 하나의 그룹으로 묶는 속성은?",
+    "description": "",
     "options": ["<id>", "<name>", "<class>", "<value>"],
     "answer": 2,
     "level": 2
@@ -240,9 +268,254 @@
 
   {
     "id": 29,
-    "question": "label 태그에서 input과 연결하는 속성은??",
-    "options": ["<id>", "<name>", "<for>", "type>"],
+    "question": "label 태그에서 input과 연결하는 속성은?",
+    "description": "",
+    "options": ["<id>", "<name>", "<for>", "<type>"],
     "answer": 3,
     "level": 2
+  },
+
+  {
+    "id": 30,
+    "question": "HTTP 기본 포트 번호는?",
+    "description": "",
+    "options": ["21", "80", "443", "8080"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 31,
+    "question": "HTTP 특징은?",
+    "description": "",
+    "options": ["stateful", "stateless", "synchronous", "encrypted"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 32,
+    "question": "HTTP 요청 메시지 구성요소는?",
+    "description": "",
+    "options": [
+      "request line + header + body",
+      "header + html",
+      "method + port",
+      "path + query"
+    ],
+    "answer": 1,
+    "level": 2
+  },
+
+  {
+    "id": 33,
+    "question": "GET 요청에서 일반적으로 없는 부분은?",
+    "description": "",
+    "options": ["header", "URL", "body", "method"],
+    "answer": 3,
+    "level": 2
+  },
+
+  {
+    "id": 34,
+    "question": "HTTP 응답 코드 200 의미는?",
+    "description": "",
+    "options": ["서버 오류", "요청 성공", "페이지 없음", "인증 실패"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 35,
+    "question": "HTTP 응답 코드 404 의미는?",
+    "description": "",
+    "options": ["페이지 없음", "서버 정상", "인증 실패", "서버 오류"],
+    "answer": 1,
+    "level": 2
+  },
+
+  {
+    "id": 36,
+    "question": "URL에서 서버 주소를 나타내는 부분은?",
+    "description": "",
+    "options": ["protocol", "host", "path", "query"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 37,
+    "question": "URL에서 서버 자원의 위치를 나타내는 부분은?",
+    "description": "",
+    "options": ["host", "path", "protocol", "port"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 38,
+    "question": "IPv4 주소는 몇 비트인가?",
+    "description": "",
+    "options": ["16", "32", "64", "128"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 39,
+    "question": "IPv4 주소 표현 방식은?",
+    "description": "",
+    "options": ["10진수 4개", "16진수 4개", "2진수 문자열", "문자 문자열"],
+    "answer": 1,
+    "level": 2
+  },
+
+  {
+    "id": 40,
+    "question": "HTML에서 테이블 행(row)을 만드는 태그는?",
+    "description": "",
+    "options": ["<td>", "<tr>", "<th>", "<row>"],
+    "answer": 2,
+    "level": 2
+  },
+
+  {
+    "id": 41,
+    "question": "다음 코드에서 `<label>`을 클릭했을 때 입력창이 활성화되는 이유는?",
+    "description": "<label for=\"username\">Username</label>\n<input id=\"username\" type=\"text\">",
+    "options": [
+      "label의 for 속성이 input의 id와 연결되기 때문",
+      "label과 input의 name 속성이 동일하기 때문",
+      "label은 항상 가장 가까운 input과 자동으로 연결되기 때문 ",
+      "label이 input보다 먼저 선언되어 있기 때문"
+    ],
+    "answer": 1,
+    "level": 3
+  },
+
+  {
+    "id": 42,
+    "question": "다음 중 HTML5 semantic 구조로 가장 적절한 것은?",
+    "description": "",
+    "options": [
+      "header-nav-section-article-footer 구조로 페이지를 구성한다  ",
+      "div 태그만 사용하여 모든 페이지 영역을 구성한다",
+      "script와 style 태그를 사용하여 페이지 구조를 만든다",
+      "form과 input 태그로 페이지 레이아웃을 구성한다"
+    ],
+    "answer": 1,
+    "level": 3
+  },
+
+  {
+    "id": 43,
+    "question": "다음 JavaScript 코드의 실행 결과는?",
+    "description": "console.log(1 + \"2\" + 3);",
+    "options": [
+      "숫자 6이 출력된다",
+      "문자열 \"123\"이 출력된다",
+      "숫자 33이 출력된다 ",
+      "NaN이 출력된다"
+    ],
+    "answer": 2,
+    "level": 3
+  },
+
+  {
+    "id": 44,
+    "question": "다음 JavaScript 코드의 실행 결과는?",
+    "description": "console.log(typeof []);",
+    "options": [
+      "배열 타입인 \"array\"가 출력된다",
+      "객체 타입인 \"object\"가 출력된다",
+      "문자열 타입인 \"string\"가 출력된다 ",
+      "정의되지 않은 \"undefined\"가 출력된다"
+    ],
+    "answer": 2,
+    "level": 3
+  },
+
+  {
+    "id": 45,
+    "question": "다음 CSS 선택자 중 우선순위가 가장 높은 것은?",
+    "description": "",
+    "options": [
+      "div p 선택자",
+      "p 태그 선택자",
+      ".menu 클래스 선택자",
+      "#menu 아이디 선택자"
+    ],
+    "answer": 4,
+    "level": 3
+  },
+
+  {
+    "id": 46,
+    "question": "다음 CSS 코드의 의미로 가장 올바른 것은?",
+    "description": "div p {\ncolor: red;\n}",
+    "options": [
+      "모든 div와 p 요소에 빨간색이 적용된다",
+      "div 바로 다음에 오는 p 요소에만 적용된다",
+      "div 내부에 있는 p 요소에 빨간색이 적용된다 ",
+      "모든 p 요소에 빨간색이 적용된다"
+    ],
+    "answer": 3,
+    "level": 3
+  },
+
+  {
+    "id": 47,
+    "question": "다음 JavaScript 코드 실행 결과는?",
+    "description": "console.log(\"5\" - 2);",
+    "options": [
+      "문자열 \"52\"가 출력된다  ",
+      "숫자 3이 출력된다",
+      "숫자 7이 출력된다",
+      "NaN이 출력된다"
+    ],
+    "answer": 2,
+    "level": 3
+  },
+
+  {
+    "id": 48,
+    "question": "HTTP가 stateless 프로토콜이라는 의미로 가장 올바른 것은?",
+    "description": "",
+    "options": [
+      "서버가 이전 요청의 상태 정보를 계속 저장한다 ",
+      "서버가 클라이언트의 이전 요청 상태를 기억하지 않는다",
+      "서버가 항상 로그인 상태를 유지한다 ",
+      "모든 HTTP 통신이 암호화되어 전달된다"
+    ],
+    "answer": 2,
+    "level": 3
+  },
+
+  {
+    "id": 49,
+    "question": "다음 HTML 코드의 동작으로 가장 올바른 것은?",
+    "description": "<a href=\"#section1\">Go</a>\n<h2 id=\"section1\">Title</h2>",
+    "options": [
+      "새로운 웹 페이지로 이동한다",
+      "같은 페이지 내 특정 위치로 이동한다  ",
+      "서버에 새로운 HTTP 요청을 보낸다",
+      "새로운 탭에서 페이지가 열린다"
+    ],
+    "answer": 2,
+    "level": 3
+  },
+
+  {
+    "id": 50,
+    "question": "다음 JavaScript 코드 실행 결과는?",
+    "description": "console.log(2 + \"2\" * 2);",
+    "options": [
+      "숫자 6이 출력된다",
+      "숫자 8이 출력된다",
+      "문자열 \"22\"가 출력된다",
+      "NaN이 출력된다"
+    ],
+    "answer": 1,
+    "level": 3
   }
 ]
