@@ -25,7 +25,7 @@ h6은 나레이션 또는 자막용 입니다!
   top: 70%; /* 화면 기준 70% 아래 */
   left: 50%;
   transform: translateX(-50%);
-  font-size: x-large;
+  font-size: xx-large;
   color: #ffffff;
   text-align: center;
 }
