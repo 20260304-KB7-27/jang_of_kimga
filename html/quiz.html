@@ -1,254 +1,254 @@
 <!doctype html>
 <html lang="ko">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>1:1 퀴즈 대결</title>
     <style>
-        #waiting-area {
-            display: none;
-        }
+      #waiting-area {
+        display: none;
+      }
 
-        #quiz-area {
-            display: none;
-        }
+      #quiz-area {
+        display: none;
+      }
 
-        #result-area {
-            display: none;
-        }
+      #result-area {
+        display: none;
+      }
 
-        #notification {
-            display: none;
-        }
+      #notification {
+        display: none;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <!-- 알림 -->
-        <div id="notification"></div>
+      <!-- 알림 -->
+      <div id="notification"></div>
 
-        <!-- 1) 방 입장 화면 -->
-        <div id="room-selection">
-            <h1>퀴즈 대결</h1>
-            <p>방 이름을 입력하고 상대를 기다리세요</p>
-            <input id="room-input" placeholder="방 이름 입력 (예: room1)" />
-            <button class="btn btn-primary" onclick="joinRoom()">입장하기</button>
-        </div>
+      <!-- 1) 방 입장 화면 -->
+      <div id="room-selection">
+        <h1>퀴즈 대결</h1>
+        <p>방 이름을 입력하고 상대를 기다리세요</p>
+        <input id="room-input" placeholder="방 이름 입력 (예: room1)" />
+        <button class="btn btn-primary" onclick="joinRoom()">입장하기</button>
+      </div>
 
-        <!-- 2) 대기 화면 -->
-        <div id="waiting-area">
-            <div class="waiting-text">상대방을 기다리는 중...</div>
-            <div class="spinner"></div>
-            <div class="player-count">
-                현재 <span id="player-count">1</span>/2명
-            </div>
+      <!-- 2) 대기 화면 -->
+      <div id="waiting-area">
+        <div class="waiting-text">상대방을 기다리는 중...</div>
+        <div class="spinner"></div>
+        <div class="player-count">
+          현재 <span id="player-count">1</span>/2명
         </div>
+      </div>
 
-        <!-- 3) 퀴즈 화면 -->
-        <div id="quiz-area">
-            <div class="quiz-header">
-                <span class="quiz-progress" id="quiz-progress">1 / 5</span>
-                <span class="quiz-score" id="quiz-score">내 점수: 0</span>
-            </div>
-            <div class="question-card">
-                <div class="question-text" id="question-text"></div>
-            </div>
-            <div class="options" id="options"></div>
-            <div class="waiting-opponent" id="waiting-opponent"></div>
+      <!-- 3) 퀴즈 화면 -->
+      <div id="quiz-area">
+        <div class="quiz-header">
+          <span class="quiz-progress" id="quiz-progress">1 / 5</span>
+          <span class="quiz-score" id="quiz-score">내 점수: 0</span>
         </div>
+        <div class="question-card">
+          <div class="question-text" id="question-text"></div>
+        </div>
+        <div class="options" id="options"></div>
+        <div class="waiting-opponent" id="waiting-opponent"></div>
+      </div>
 
-        <!-- 4) 결과 화면 -->
-        <div id="result-area">
-            <div class="result-title" id="result-title"></div>
-            <div class="result-subtitle" id="result-subtitle"></div>
-            <div class="scoreboard">
-                <div class="score-card me">
-                    <div class="score-label">나</div>
-                    <div class="score-value" id="my-score">0</div>
-                </div>
-                <div class="score-card opponent">
-                    <div class="score-label">상대</div>
-                    <div class="score-value" id="opponent-score">0</div>
-                </div>
-            </div>
-            <button class="btn btn-primary" onclick="location.reload()">
-                다시 하기
-            </button>
+      <!-- 4) 결과 화면 -->
+      <div id="result-area">
+        <div class="result-title" id="result-title"></div>
+        <div class="result-subtitle" id="result-subtitle"></div>
+        <div class="scoreboard">
+          <div class="score-card me">
+            <div class="score-label">나</div>
+            <div class="score-value" id="my-score">0</div>
+          </div>
+          <div class="score-card opponent">
+            <div class="score-label">상대</div>
+            <div class="score-value" id="opponent-score">0</div>
+          </div>
         </div>
+        <button class="btn btn-primary" onclick="location.reload()">
+          다시 하기
+        </button>
+      </div>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        // ── 소켓 연결 ────────────────────────────
-        // io() 내부에 IPv4 주소를 추후 넣으면 됨
-        const socket = io();
-        let currentRoom = '';
-        let myScore = 0;
+      // ── 소켓 연결 ────────────────────────────
+      // io() 내부에 IPv4 주소를 추후 넣으면 됨
+      const socket = io();
+      let currentRoom = '';
+      let myScore = 0;
 
-        // ── 방 입장 ──────────────────────────────
-        function joinRoom() {
-            const input = document.getElementById('room-input');
-            const roomName = input.value.trim();
-            if (!roomName) return;
+      // ── 방 입장 ──────────────────────────────
+      function joinRoom() {
+        const input = document.getElementById('room-input');
+        const roomName = input.value.trim();
+        if (!roomName) return;
 
-            currentRoom = roomName;
-            socket.emit('join room', currentRoom);
+        currentRoom = roomName;
+        socket.emit('join room', currentRoom);
 
-            showScreen('waiting-area');
+        showScreen('waiting-area');
+      }
+
+      // ── 화면 전환 유틸 ───────────────────────
+      function showScreen(screenId) {
+        ['room-selection', 'waiting-area', 'quiz-area', 'result-area'].forEach(
+          (id) => {
+            document.getElementById(id).style.display = 'none';
+          },
+        );
+        document.getElementById(screenId).style.display = 'block';
+      }
+
+      function showNotification(msg, duration = 2000) {
+        const el = document.getElementById('notification');
+        el.textContent = msg;
+        el.style.display = 'block';
+        setTimeout(() => {
+          el.style.display = 'none';
+        }, duration);
+      }
+
+      // ── 소켓 이벤트: 입장 / 대기 ─────────────
+      socket.on('player joined', (data) => {
+        document.getElementById('player-count').textContent = data.playerCount;
+      });
+
+      socket.on('room full', () => {
+        showNotification('방이 가득 찼습니다!');
+        showScreen('room-selection');
+      });
+
+      // ── 소켓 이벤트: 게임 시작 ────────────────
+      socket.on('game start', (data) => {
+        showNotification('게임 시작!');
+        myScore = 0;
+      });
+
+      // ── 소켓 이벤트: 새 문제 ──────────────────
+      socket.on('new question', (data) => {
+        showScreen('quiz-area');
+
+        // 진행 상태 업데이트
+        document.getElementById('quiz-progress').textContent =
+          `${data.index + 1} / ${data.total}`;
+        document.getElementById('quiz-score').textContent =
+          `내 점수: ${myScore}`;
+
+        // 문제 표시
+        document.getElementById('question-text').textContent = data.question;
+
+        // 선택지 렌더링
+        const optionsEl = document.getElementById('options');
+        optionsEl.innerHTML = '';
+        data.options.forEach((option, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'option-btn';
+          btn.textContent = `${idx + 1}. ${option}`;
+          btn.onclick = () => submitAnswer(idx + 1);
+          optionsEl.appendChild(btn);
+        });
+
+        // 대기 메시지 숨기기
+        document.getElementById('waiting-opponent').textContent = '';
+      });
+
+      // ── 답변 제출 ─────────────────────────────
+      function submitAnswer(answerIndex) {
+        socket.emit('submit answer', {
+          room: currentRoom,
+          answer: answerIndex,
+        });
+
+        // 버튼 비활성화
+        document.querySelectorAll('.option-btn').forEach((btn) => {
+          btn.disabled = true;
+        });
+      }
+
+      // ── 소켓 이벤트: 오답 알림 (본인에게만) ─────
+      socket.on('answer result', (data) => {
+        const buttons = document.querySelectorAll('.option-btn');
+
+        // 내가 고른 답 오답 표시
+        buttons[data.yourAnswer].classList.add('wrong');
+
+        document.getElementById('waiting-opponent').textContent =
+          '상대방 답변 대기 중...';
+      });
+
+      // ── 소켓 이벤트: 라운드 종료 ────────────────
+      socket.on('round end', (data) => {
+        const buttons = document.querySelectorAll('.option-btn');
+
+        // 모든 버튼 비활성화
+        buttons.forEach((btn) => {
+          btn.disabled = true;
+        });
+
+        // 정답 표시
+        buttons[data.correctAnswer].classList.add('correct');
+
+        // 누가 맞췄는지 표시
+        if (data.winnerId === socket.id) {
+          myScore++;
+          document.getElementById('quiz-score').textContent =
+            `내 점수: ${myScore}`;
+          document.getElementById('waiting-opponent').textContent =
+            '정답! 다음 문제로 이동합니다...';
+        } else if (data.winnerId) {
+          document.getElementById('waiting-opponent').textContent =
+            '상대방이 먼저 맞췄습니다!';
+        } else {
+          document.getElementById('waiting-opponent').textContent =
+            '둘 다 틀렸습니다! 다음 문제로 이동합니다...';
         }
+      });
 
-        // ── 화면 전환 유틸 ───────────────────────
-        function showScreen(screenId) {
-            ['room-selection', 'waiting-area', 'quiz-area', 'result-area'].forEach(
-                (id) => {
-                    document.getElementById(id).style.display = 'none';
-                }
-            );
-            document.getElementById(screenId).style.display = 'block';
+      // ── 소켓 이벤트: 게임 종료 ────────────────
+      socket.on('game over', (data) => {
+        showScreen('result-area');
+
+        const myId = socket.id;
+        const opponentId = data.players.find((id) => id !== myId);
+        const myFinalScore = data.scores[myId];
+        const opponentFinalScore = data.scores[opponentId];
+
+        document.getElementById('my-score').textContent = myFinalScore;
+        document.getElementById('opponent-score').textContent =
+          opponentFinalScore;
+
+        const titleEl = document.getElementById('result-title');
+        const subtitleEl = document.getElementById('result-subtitle');
+
+        if (myFinalScore > opponentFinalScore) {
+          titleEl.textContent = '승리!';
+          titleEl.className = 'result-title win';
+          subtitleEl.textContent = '축하합니다!';
+        } else if (myFinalScore < opponentFinalScore) {
+          titleEl.textContent = '패배';
+          titleEl.className = 'result-title lose';
+          subtitleEl.textContent = '다음엔 이길 수 있어요!';
+        } else {
+          titleEl.textContent = '무승부';
+          titleEl.className = 'result-title draw';
+          subtitleEl.textContent = '실력이 비슷하네요!';
         }
+      });
 
-        function showNotification(msg, duration = 2000) {
-            const el = document.getElementById('notification');
-            el.textContent = msg;
-            el.style.display = 'block';
-            setTimeout(() => {
-                el.style.display = 'none';
-            }, duration);
-        }
-
-        // ── 소켓 이벤트: 입장 / 대기 ─────────────
-        socket.on('player joined', (data) => {
-            document.getElementById('player-count').textContent = data.playerCount;
-        });
-
-        socket.on('room full', () => {
-            showNotification('방이 가득 찼습니다!');
-            showScreen('room-selection');
-        });
-
-        // ── 소켓 이벤트: 게임 시작 ────────────────
-        socket.on('game start', (data) => {
-            showNotification('게임 시작!');
-            myScore = 0;
-        });
-
-        // ── 소켓 이벤트: 새 문제 ──────────────────
-        socket.on('new question', (data) => {
-            showScreen('quiz-area');
-
-            // 진행 상태 업데이트
-            document.getElementById('quiz-progress').textContent =
-                `${data.index + 1} / ${data.total}`;
-            document.getElementById('quiz-score').textContent =
-                `내 점수: ${myScore}`;
-
-            // 문제 표시
-            document.getElementById('question-text').textContent = data.question;
-
-            // 선택지 렌더링
-            const optionsEl = document.getElementById('options');
-            optionsEl.innerHTML = '';
-            data.options.forEach((option, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.textContent = `${idx + 1}. ${option}`;
-                btn.onclick = () => submitAnswer(idx);
-                optionsEl.appendChild(btn);
-            });
-
-            // 대기 메시지 숨기기
-            document.getElementById('waiting-opponent').textContent = '';
-        });
-
-        // ── 답변 제출 ─────────────────────────────
-        function submitAnswer(answerIndex) {
-            socket.emit('submit answer', {
-                room: currentRoom,
-                answer: answerIndex,
-            });
-
-            // 버튼 비활성화
-            document.querySelectorAll('.option-btn').forEach((btn) => {
-                btn.disabled = true;
-            });
-        }
-
-        // ── 소켓 이벤트: 오답 알림 (본인에게만) ─────
-        socket.on('answer result', (data) => {
-            const buttons = document.querySelectorAll('.option-btn');
-
-            // 내가 고른 답 오답 표시
-            buttons[data.yourAnswer].classList.add('wrong');
-
-            document.getElementById('waiting-opponent').textContent =
-                '상대방 답변 대기 중...';
-        });
-
-        // ── 소켓 이벤트: 라운드 종료 ────────────────
-        socket.on('round end', (data) => {
-            const buttons = document.querySelectorAll('.option-btn');
-
-            // 모든 버튼 비활성화
-            buttons.forEach((btn) => { btn.disabled = true; });
-
-            // 정답 표시
-            buttons[data.correctAnswer].classList.add('correct');
-
-            // 누가 맞췄는지 표시
-            if (data.winnerId === socket.id) {
-                myScore++;
-                document.getElementById('quiz-score').textContent =
-                    `내 점수: ${myScore}`;
-                document.getElementById('waiting-opponent').textContent =
-                    '정답! 다음 문제로 이동합니다...';
-            } else if (data.winnerId) {
-                document.getElementById('waiting-opponent').textContent =
-                    '상대방이 먼저 맞췄습니다!';
-            } else {
-                document.getElementById('waiting-opponent').textContent =
-                    '둘 다 틀렸습니다! 다음 문제로 이동합니다...';
-            }
-        });
-
-        // ── 소켓 이벤트: 게임 종료 ────────────────
-        socket.on('game over', (data) => {
-            showScreen('result-area');
-
-            const myId = socket.id;
-            const opponentId = data.players.find((id) => id !== myId);
-            const myFinalScore = data.scores[myId];
-            const opponentFinalScore = data.scores[opponentId];
-
-            document.getElementById('my-score').textContent = myFinalScore;
-            document.getElementById('opponent-score').textContent =
-                opponentFinalScore;
-
-            const titleEl = document.getElementById('result-title');
-            const subtitleEl = document.getElementById('result-subtitle');
-
-            if (myFinalScore > opponentFinalScore) {
-                titleEl.textContent = '승리!';
-                titleEl.className = 'result-title win';
-                subtitleEl.textContent = '축하합니다!';
-            } else if (myFinalScore < opponentFinalScore) {
-                titleEl.textContent = '패배';
-                titleEl.className = 'result-title lose';
-                subtitleEl.textContent = '다음엔 이길 수 있어요!';
-            } else {
-                titleEl.textContent = '무승부';
-                titleEl.className = 'result-title draw';
-                subtitleEl.textContent = '실력이 비슷하네요!';
-            }
-        });
-
-        // ── 소켓 이벤트: 상대방 퇴장 ──────────────
-        socket.on('opponent left', () => {
-            showNotification('상대방이 나갔습니다', 3000);
-            setTimeout(() => location.reload(), 2000);
-        });
+      // ── 소켓 이벤트: 상대방 퇴장 ──────────────
+      socket.on('opponent left', () => {
+        showNotification('상대방이 나갔습니다', 3000);
+        setTimeout(() => location.reload(), 2000);
+      });
     </script>
-</body>
-
+  </body>
 </html>
