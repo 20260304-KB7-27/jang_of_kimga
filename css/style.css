@@ -1,130 +1,454 @@
-html,
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: 'Nanum Gothic', sans-serif;
+  background: #e7e7e7;
+  font-family: "Malgun Gothic", "Apple SD Gothic Neo", Arial, sans-serif;
+  padding: 40px 0;
   color: #ffffff;
-  height: 100%;
-  margin: 0;
 }
 
 .container {
-  background-color: #0f172a;
+  width: 760px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #0f1c33 0%, #081328 100%);
+  border: 6px solid #16253f;
+  border-radius: 6px;
+  padding: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+#waiting-area,
+#quiz-area,
+#result-area {
   width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  right: 0;
-  /* background-image: url('/assets/images/test.jpg'); */
-}
-
-/* 
-h6은 나레이션 또는 자막용 입니다!
-*/
-.container > h6 {
-  position: absolute;
-  top: 70%; /* 화면 기준 70% 아래 */
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: xx-large;
-  color: #ffffff;
-  text-align: center;
-}
-
-.container {
-  background-color: #0f172a;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  right: 0;
-}
-
-.container > div {
-  background-color: #334155;
-}
-
-div > .title {
-  font-size: 45px;
-  margin-left: 5%;
-  color: #ffffff;
-}
-div > .sub-title {
-  font-size: 25px;
-  margin-left: 5%;
-  color: #888888;
-}
-div > .info-input {
-  margin-left: 5%;
-}
-
-#room-selection {
-  color: red;
-}
-
-#waiting-area {
-  /* display: none; */
 }
 
 #quiz-area {
-  /* display: none; */
+  display: none;
 }
 
 #result-area {
-  /* display: none; */
+  display: none;
 }
 
 #notification {
-  /* display: none; */
-}
-
-/* 메인 화면 안내사항 */
-
-#header {
-  display: flex;
-  align-items: center;
-  height: 80px;
-  top: 0;
-  width: 100%;
-  left: 0;
-  right: 0;
-  background-color: #1e293b;
-  color: white;
-}
-
-.logo-area {
-  font-size: 3em;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  display: flex;
-  align-items: center;
-  margin-left: 20px;
-}
-
-.logo-area img {
-  max-height: 70px;
-  width: auto;
-  margin-right: 12px;
-}
-
-.user-name {
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 3em;
-  margin-left: auto;
-  margin-right: 20px;
-}
-/* #footer {
-  font-size: 5em;
+  display: none;
+  margin-bottom: 12px;
+  background: #f8d45c;
+  color: #1d1d1d;
+  padding: 10px 14px;
+  border-radius: 8px;
   text-align: center;
-  position: fixed;
-  height: 80px;
-  bottom: 0;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  right: 0;
-} */
+  font-weight: 700;
+}
 
-/* #footer {
+a {
+  color: #00b7ff;
+  text-decoration: none;
+}
+
+/* 대기 화면 */
+#waiting-area {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.waiting-text {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.spinner {
+  width: 58px;
+  height: 58px;
+  border: 7px solid #41516b;
+  border-top: 7px solid #f1c40f;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  animation: spin 1s linear infinite;
+}
+
+.player-count {
+  font-size: 18px;
+  color: #d6deeb;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 배틀 상단 */
+.battle-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: #17263f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.battle-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f0c400;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.battle-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.quiz-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 14px;
+  background: #334766;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.top-hint-btn {
+  height: 28px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 14px;
+  background: #506a91;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 팀 박스 영역 */
+.team-panel {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  align-items: center;
+  gap: 14px;
+  background: #344560;
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.team-card {
+  min-height: 112px;
+  background: #4a5d7b;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.team-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.team-score {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.vs-text {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* HP */
+.hp-wrap {
+  margin-top: 4px;
+}
+
+.hp-label {
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #edf2f7;
+}
+
+.hp-bar {
+  width: 100%;
+  height: 14px;
+  background: #24354e;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.hp-fill {
+  height: 100%;
+  width: 100%;
+  transition: width 0.35s ease;
+}
+
+.hp-fill.my {
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+}
+
+.hp-fill.enemy {
+  background: linear-gradient(90deg, #ff6b6b, #d64545);
+}
+
+/* 문제 카드 */
+.question-card {
+  background: #3e506b;
+  border-radius: 8px;
+  padding: 18px 16px 14px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.question-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: #dfe6ef;
+  margin-bottom: 12px;
+}
+
+.question-text {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 14px;
+  word-break: keep-all;
+}
+
+/* 선택지 */
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 14px;
+  margin-bottom: 14px;
+}
+
+.option-btn {
+  background: #23344d;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 14px 18px;
+  min-height: 46px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.option-btn:hover {
+  background: #314967;
+  transform: translateY(-1px);
+}
+
+.option-btn:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.option-btn.correct {
+  background: #1ea84a;
+}
+
+.option-btn.wrong {
+  background: #d9534f;
+}
+
+/* 하단 버튼 */
+.control-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.hint-btn,
+.surrender-btn {
+  min-width: 108px;
+  height: 36px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.hint-btn {
+  background: #25b33f;
+}
+
+.surrender-btn {
+  background: #4aa3ec;
+}
+
+.hint-btn:disabled,
+.surrender-btn:disabled,
+.top-hint-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.waiting-opponent {
+  min-height: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5d76e;
+  text-align: center;
+}
+
+/* 결과 화면 */
+#result-area {
+  text-align: center;
+  padding: 36px 10px;
+}
+
+.result-title {
+  font-size: 38px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.result-subtitle {
+  font-size: 18px;
+  color: #d8e1ee;
+  margin-bottom: 24px;
+}
+
+.result-title.win {
+  color: #2ecc71;
+}
+
+.result-title.lose {
+  color: #ff6b6b;
+}
+
+.result-title.draw {
+  color: #f1c40f;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.score-card {
+  width: 160px;
+  background: #324562;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.score-label {
+  font-size: 16px;
+  color: #e8eef7;
+  margin-bottom: 10px;
+}
+
+.score-value {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.btn,
+.btn-primary {
+  background: #4aa3ec;
   color: white;
-  background-color: navy;
-} */
+  border: none;
+  border-radius: 6px;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn-primary:hover {
+  background: #318ed9;
+}
+
+/* 반응형 */
+@media (max-width: 820px) {
+  .container {
+    width: 94%;
+    padding: 12px;
+  }
+
+  .battle-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .battle-info {
+    justify-content: flex-start;
+  }
+
+  .team-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .vs-text {
+    margin: 4px 0;
+  }
+
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .control-row {
+    flex-direction: column;
+  }
+
+  .hint-btn,
+  .surrender-btn {
+    width: 100%;
+  }
+}
