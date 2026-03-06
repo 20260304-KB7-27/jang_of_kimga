@@ -29,7 +29,7 @@
       <!-- 알림 -->
       <div id="notification"></div>
 
-      <!-- 2) 대기 화면 -->
+      <!-- 2) 대기 화면 
       <div id="waiting-area">
         <div class="waiting-text">상대방을 기다리는 중...</div>
         <div class="spinner"></div>
@@ -37,6 +37,43 @@
           현재 <span id="player-count">1</span>/2명
         </div>
       </div>
+
+      -->
+
+      <!-- 0306 재한 -->
+      <div id="waiting-area">
+        <div class="waiting-card">
+          <h2 class="waiting-title">상대방을 기다리는 중...</h2>
+          <p class="waiting-desc">
+            두 팀이 모두 입장하면 자동으로 게임이 시작됩니다.
+          </p>
+
+          <div class="spinner"></div>
+
+          <div class="waiting-info-box">
+            <div class="waiting-row">
+              <span class="label">방 이름</span>
+              <span class="value" id="waiting-room-name">room1</span>
+            </div>
+            <div class="waiting-row">
+              <span class="label">참가 인원</span>
+              <span class="value"><span id="player-count">1</span> / 2명</span>
+            </div>
+            <div class="waiting-row">
+              <span class="label">내 팀명</span>
+              <span class="value" id="waiting-team-name">team1</span>
+            </div>
+            <div class="waiting-row">
+              <span class="label">상태</span>
+              <span class="value status" id="waiting-status"
+                >상대방 입장 대기</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- -->
 
       <!-- 3) 퀴즈 화면 -->
       <div id="quiz-area">

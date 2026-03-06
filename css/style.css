@@ -77,6 +77,88 @@ div > .info-input {
   /* display: none; */
 }
 
+/* 0306 재한*/
+
+#waiting-area {
+  /* display: none; */
+  padding: 40px 20px;
+}
+
+.waiting-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background-color: #334155;
+  border-radius: 16px;
+  padding: 32px 24px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.waiting-title {
+  margin: 0 0 10px 0;
+  font-size: 36px;
+  color: #ffffff;
+}
+
+.waiting-desc {
+  margin: 0 0 24px 0;
+  font-size: 16px;
+  color: #cbd5e1;
+}
+
+.spinner {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 24px auto;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid #22c55e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.waiting-info-box {
+  background-color: #24324a;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: left;
+}
+
+.waiting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.waiting-row:last-child {
+  border-bottom: none;
+}
+
+.waiting-row .label {
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.waiting-row .value {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.waiting-row .status {
+  color: #facc15;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 body {
   height: 100%;
   margin: 0;
