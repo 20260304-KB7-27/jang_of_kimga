@@ -5,13 +5,28 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
+
+app.use(express.static(__dirname));
+
 const server = http.createServer(app);
 const io = new Server(server);
 
 // ── 퀴즈 데이터 로드 ─────────────────────────────────
-const quizData = JSON.parse(
+const allQuizData = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data', 'quiz.json'), 'utf-8'),
 );
+
+// 2. 무작위로 20개 추출하는 로직
+const getRandomQuizzes = (data, count) => {
+  // 데이터를 복사한 뒤 무작위로 섞습니다. (Fisher-Yates Shuffle 알고리즘의 간소화 버전)
+  const shuffled = [...data].sort(() => 0.5 - Math.random());
+
+  // 앞에서부터 count(20)개만큼 잘라서 반환합니다.
+  return shuffled.slice(0, count);
+};
+
+// 3. 결과 저장
+const quizData = getRandomQuizzes(allQuizData, 20);
 
 // ── 방 상태 관리 ──────────────────────────────────────
 // rooms[roomName] = {
