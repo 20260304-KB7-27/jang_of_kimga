@@ -1,21 +1,35 @@
-body {
-  padding: 50px;
-  font:
-    14px 'lucida Grande',
-    Helvetica,
-    Arial,
-    sans-serif;
+.container {
+  background-color: #0f172a;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  /* background-image: url('/assets/images/test.jpg'); */
+}
+
+/* 
+h6은 나레이션 또는 자막용 입니다!
+*/
+.container > h6 {
+  position: absolute;
+  top: 70%; /* 화면 기준 70% 아래 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: x-large;
+  text-align: center;
 }
 
 .container > div {
   background-color: purple;
 }
+
 #room-selection {
   color: red;
 }
 
 #waiting-area {
-  /* display: none; */
+  display: none;
 }
 
 #quiz-area {
@@ -28,16 +42,4 @@ body {
 
 #notification {
   display: none;
-}
-
-a {
-  color: #00b7ff;
-}
-
-h1 {
-  color: red;
-}
-
-#login {
-  /* visibility: hidden; */
 }
