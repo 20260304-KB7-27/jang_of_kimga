@@ -28,6 +28,7 @@
         <div class="quiz-header">
           <span class="quiz-progress" id="quiz-progress">1 / 5</span>
           <span class="quiz-score" id="quiz-score">내 점수: 0</span>
+          <span class="opponentScore" id="opponentScore">상대 점수: 0</span>
         </div>
         <div class="question-card">
           <div class="question-text" id="question-text"></div>
@@ -63,6 +64,7 @@
       const socket = io();
       let currentRoom = '';
       let myScore = 0;
+      let opponentScore = 0;
 
       // ── 방 입장 ──────────────────────────────
       function joinRoom() {
@@ -120,6 +122,9 @@
           `${data.index + 1} / ${data.total}`;
         document.getElementById('quiz-score').textContent =
           `내 점수: ${myScore}`;
+
+        document.getElementById('opponentScore').textContent =
+          `상대 점수: ${opponentScore}`;
 
         // 문제 표시
         document.getElementById('question-text').textContent = data.question;
@@ -185,6 +190,7 @@
         } else if (data.winnerId) {
           document.getElementById('waiting-opponent').textContent =
             '상대방이 먼저 맞췄습니다!';
+          opponentScore++;
         } else {
           document.getElementById('waiting-opponent').textContent =
             '둘 다 틀렸습니다! 다음 문제로 이동합니다...';
