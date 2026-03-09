@@ -144,7 +144,7 @@ if (typeof io !== 'undefined') {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
       btn.textContent = `${idx + 1}. ${option}`;
-      btn.onclick = () => submitAnswer(idx + 1);
+      btn.onclick = () => submitAnswer(idx);
       optionsEl.appendChild(btn);
     });
 
@@ -186,7 +186,7 @@ if (typeof io !== 'undefined') {
     });
 
     // 정답 표시
-    buttons[data.correctAnswer - 1].classList.add('correct');
+    buttons[data.correctAnswer].classList.add('correct');
 
     // HP 업데이트
     if (data.hp) {
