@@ -16,22 +16,22 @@ const allQuizData = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data', 'quiz.json'), 'utf-8'),
 );
 
-// 2. 무작위로 20개 추출하는 로직
-const getRandomQuizzes = (data, count) => {
-  // 데이터를 복사한 뒤 무작위로 섞습니다. (Fisher-Yates Shuffle 알고리즘의 간소화 버전)
-  const shuffled = [...data].sort(() => 0.5 - Math.random());
-
-  // 앞에서부터 count(20)개만큼 잘라서 반환합니다.
-  return shuffled.slice(0, count);
+// 2. 무작위로 섞는 로직 (HP 소진까지 충분한 문제 확보)
+const getShuffledQuizzes = (data) => {
+  return [...data].sort(() => 0.5 - Math.random());
 };
 
-// 3. 결과 저장
-const quizData = getRandomQuizzes(allQuizData, 20);
+// 3. 결과 저장 (전체 문제를 섞어서 사용)
+const quizData = getShuffledQuizzes(allQuizData);
+
+// HP 설정
+const MAX_HP = 10;
 
 // ── 방 상태 관리 ──────────────────────────────────────
 // rooms[roomName] = {
 //   players: [socketId, socketId],
 //   scores: { socketId: number },
+//   hp: { socketId: number },
 //   currentQuestion: number,
 //   answers: { socketId: optionIndex }
 // }
@@ -49,13 +49,21 @@ app.get('/quiz', (req, res) => {
 // ── 유틸 함수 ─────────────────────────────────────────
 function sendQuestion(roomName) {
   const room = rooms[roomName];
-  const q = quizData[room.currentQuestion];
+  // 문제 인덱스가 전체 문제 수를 넘으면 순환
+  const qIndex = room.currentQuestion % quizData.length;
+  const q = quizData[qIndex];
+
+  const [p1, p2] = room.players;
 
   io.to(roomName).emit('new question', {
     index: room.currentQuestion,
-    total: quizData.length,
+    total: MAX_HP,
     question: q.question,
     options: q.options,
+    hp: {
+      [p1]: room.hp[p1],
+      [p2]: room.hp[p2],
+    },
   });
 }
 
@@ -63,12 +71,22 @@ function sendResult(roomName) {
   const room = rooms[roomName];
   const [p1, p2] = room.players;
 
+  // HP가 0인 플레이어가 패배
+  const loserId = room.hp[p1] <= 0 ? p1 : p2;
+  const winnerId = loserId === p1 ? p2 : p1;
+
   const result = {
     scores: {
       [p1]: room.scores[p1],
       [p2]: room.scores[p2],
     },
+    hp: {
+      [p1]: room.hp[p1],
+      [p2]: room.hp[p2],
+    },
     players: room.players,
+    winnerId: winnerId,
+    loserId: loserId,
   };
 
   io.to(roomName).emit('game over', result);
@@ -97,6 +115,7 @@ io.on('connection', (socket) => {
       rooms[roomName] = {
         players: [],
         scores: {},
+        hp: {},
         currentQuestion: 0,
         answers: {},
       };
@@ -115,6 +134,7 @@ io.on('connection', (socket) => {
 
     room.players.push(socket.id);
     room.scores[socket.id] = 0;
+    room.hp[socket.id] = MAX_HP;
 
     // 입장 알림
     io.to(roomName).emit('player joined', {
@@ -147,29 +167,42 @@ io.on('connection', (socket) => {
     room.answers[socket.id] = answer;
 
     // 정답 체크
-    const correctAnswer = quizData[room.currentQuestion].answer;
+    const correctAnswer = quizData[room.currentQuestion % quizData.length].answer;
     const isCorrect = answer === correctAnswer;
     if (isCorrect) {
       room.scores[socket.id]++;
+
+      // 상대방 HP 감소
+      const opponentId = room.players.find((pid) => pid !== socket.id);
+      room.hp[opponentId]--;
     }
 
     // 정답을 맞춘 경우 → 즉시 라운드 종료
     if (isCorrect) {
-      // 양쪽 모두에게 라운드 결과 알림
+      const [p1, p2] = room.players;
+
+      // 양쪽 모두에게 라운드 결과 알림 (HP 정보 포함)
       io.to(roomName).emit('round end', {
         correctAnswer: correctAnswer,
         winnerId: socket.id,
+        hp: {
+          [p1]: room.hp[p1],
+          [p2]: room.hp[p2],
+        },
       });
+
+      // HP가 0 이하인 플레이어가 있으면 게임 종료
+      const isDead = room.players.some((pid) => room.hp[pid] <= 0);
+      if (isDead) {
+        setTimeout(() => sendResult(roomName), 2000);
+        return;
+      }
 
       // 다음 문제로 진행
       room.answers = {};
       room.currentQuestion++;
 
-      if (room.currentQuestion < quizData.length) {
-        setTimeout(() => sendQuestion(roomName), 2000);
-      } else {
-        setTimeout(() => sendResult(roomName), 2000);
-      }
+      setTimeout(() => sendQuestion(roomName), 2000);
       return;
     }
 
@@ -186,19 +219,21 @@ io.on('connection', (socket) => {
     );
 
     if (bothAnswered) {
+      const [p1, p2] = room.players;
+
       io.to(roomName).emit('round end', {
         correctAnswer: correctAnswer,
         winnerId: null,
+        hp: {
+          [p1]: room.hp[p1],
+          [p2]: room.hp[p2],
+        },
       });
 
       room.answers = {};
       room.currentQuestion++;
 
-      if (room.currentQuestion < quizData.length) {
-        setTimeout(() => sendQuestion(roomName), 2000);
-      } else {
-        setTimeout(() => sendResult(roomName), 2000);
-      }
+      setTimeout(() => sendQuestion(roomName), 2000);
     }
   });
 

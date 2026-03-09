@@ -77,10 +77,27 @@
 
       <!-- 3) 퀴즈 화면 -->
       <div id="quiz-area">
+        <!-- HP 바 영역 -->
+        <div class="hp-container">
+          <div class="hp-player">
+            <span class="hp-label">나</span>
+            <div class="hp-bar-wrapper">
+              <div class="hp-bar my-hp-bar" id="my-hp-bar"></div>
+            </div>
+            <span class="hp-text" id="my-hp-text">10 / 10</span>
+          </div>
+          <div class="hp-vs">VS</div>
+          <div class="hp-player">
+            <span class="hp-label">상대</span>
+            <div class="hp-bar-wrapper">
+              <div class="hp-bar opponent-hp-bar" id="opponent-hp-bar"></div>
+            </div>
+            <span class="hp-text" id="opponent-hp-text">10 / 10</span>
+          </div>
+        </div>
+
         <div class="quiz-header">
-          <span class="quiz-progress" id="quiz-progress">1 / 5</span>
-          <span class="quiz-score" id="quiz-score">내 점수: 0</span>
-          <span class="opponentScore" id="opponentScore">상대 점수: 0</span>
+          <span class="quiz-progress" id="quiz-progress">Q1</span>
         </div>
         <div class="question-card">
           <div class="question-text" id="question-text"></div>
@@ -96,11 +113,17 @@
         <div class="scoreboard">
           <div class="score-card me">
             <div class="score-label">나</div>
-            <div class="score-value" id="my-score">0</div>
+            <div class="score-value">
+              <span>❤️ <span id="my-final-hp">0</span></span>
+              <span class="score-sub">맞춘 수: <span id="my-score">0</span></span>
+            </div>
           </div>
           <div class="score-card opponent">
             <div class="score-label">상대</div>
-            <div class="score-value" id="opponent-score">0</div>
+            <div class="score-value">
+              <span>❤️ <span id="opponent-final-hp">0</span></span>
+              <span class="score-sub">맞춘 수: <span id="opponent-score">0</span></span>
+            </div>
           </div>
         </div>
         <button class="btn btn-primary" onclick="location.reload()">
@@ -117,6 +140,38 @@
       let currentRoom = '';
       let myScore = 0;
       let opponentScore = 0;
+      let myHp = 10;
+      let opponentHp = 10;
+      const MAX_HP = 10;
+
+      // HP 바 렌더링 함수
+      function updateHpBars() {
+        const myBar = document.getElementById('my-hp-bar');
+        const opponentBar = document.getElementById('opponent-hp-bar');
+        const myText = document.getElementById('my-hp-text');
+        const opponentText = document.getElementById('opponent-hp-text');
+
+        const myPercent = (myHp / MAX_HP) * 100;
+        const opponentPercent = (opponentHp / MAX_HP) * 100;
+
+        myBar.style.width = myPercent + '%';
+        opponentBar.style.width = opponentPercent + '%';
+
+        // 색상 변경: HP가 낮으면 빨간색
+        myBar.style.backgroundColor = myPercent > 50 ? '#22c55e' : myPercent > 20 ? '#eab308' : '#ef4444';
+        opponentBar.style.backgroundColor = opponentPercent > 50 ? '#22c55e' : opponentPercent > 20 ? '#eab308' : '#ef4444';
+
+        myText.textContent = myHp + ' / ' + MAX_HP;
+        opponentText.textContent = opponentHp + ' / ' + MAX_HP;
+      }
+
+      // HP 데이터 파싱 (서버에서 socketId 기반으로 오므로 변환)
+      function parseHp(hpData) {
+        const myId = socket.id;
+        const opponentId = Object.keys(hpData).find((id) => id !== myId);
+        myHp = hpData[myId];
+        opponentHp = hpData[opponentId];
+      }
 
       // ── 방 입장 ──────────────────────────────
       function joinRoom() {
@@ -163,20 +218,24 @@
       socket.on('game start', (data) => {
         showNotification('게임 시작!');
         myScore = 0;
+        opponentScore = 0;
+        myHp = MAX_HP;
+        opponentHp = MAX_HP;
       });
 
       // ── 소켓 이벤트: 새 문제 ──────────────────
       socket.on('new question', (data) => {
         showScreen('quiz-area');
 
+        // HP 업데이트
+        if (data.hp) {
+          parseHp(data.hp);
+          updateHpBars();
+        }
+
         // 진행 상태 업데이트
         document.getElementById('quiz-progress').textContent =
-          `${data.index + 1} / ${data.total}`;
-        document.getElementById('quiz-score').textContent =
-          `내 점수: ${myScore}`;
-
-        document.getElementById('opponentScore').textContent =
-          `상대 점수: ${opponentScore}`;
+          `Q${data.index + 1}`;
 
         // 문제 표시
         document.getElementById('question-text').textContent = data.question;
@@ -232,17 +291,21 @@
         // 정답 표시
         buttons[data.correctAnswer].classList.add('correct');
 
+        // HP 업데이트
+        if (data.hp) {
+          parseHp(data.hp);
+          updateHpBars();
+        }
+
         // 누가 맞췄는지 표시
         if (data.winnerId === socket.id) {
           myScore++;
-          document.getElementById('quiz-score').textContent =
-            `내 점수: ${myScore}`;
           document.getElementById('waiting-opponent').textContent =
-            '정답! 다음 문제로 이동합니다...';
+            '정답! 상대방 HP -1 💥';
         } else if (data.winnerId) {
-          document.getElementById('waiting-opponent').textContent =
-            '상대방이 먼저 맞췄습니다!';
           opponentScore++;
+          document.getElementById('waiting-opponent').textContent =
+            '상대방이 먼저 맞췄습니다! 내 HP -1 💔';
         } else {
           document.getElementById('waiting-opponent').textContent =
             '둘 다 틀렸습니다! 다음 문제로 이동합니다...';
@@ -257,26 +320,25 @@
         const opponentId = data.players.find((id) => id !== myId);
         const myFinalScore = data.scores[myId];
         const opponentFinalScore = data.scores[opponentId];
+        const myFinalHp = data.hp[myId];
+        const opponentFinalHp = data.hp[opponentId];
 
         document.getElementById('my-score').textContent = myFinalScore;
-        document.getElementById('opponent-score').textContent =
-          opponentFinalScore;
+        document.getElementById('opponent-score').textContent = opponentFinalScore;
+        document.getElementById('my-final-hp').textContent = myFinalHp;
+        document.getElementById('opponent-final-hp').textContent = opponentFinalHp;
 
         const titleEl = document.getElementById('result-title');
         const subtitleEl = document.getElementById('result-subtitle');
 
-        if (myFinalScore > opponentFinalScore) {
-          titleEl.textContent = '승리!';
+        if (data.winnerId === myId) {
+          titleEl.textContent = '🎉 승리!';
           titleEl.className = 'result-title win';
-          subtitleEl.textContent = '축하합니다!';
-        } else if (myFinalScore < opponentFinalScore) {
-          titleEl.textContent = '패배';
-          titleEl.className = 'result-title lose';
-          subtitleEl.textContent = '다음엔 이길 수 있어요!';
+          subtitleEl.textContent = '상대방을 처치했습니다!';
         } else {
-          titleEl.textContent = '무승부';
-          titleEl.className = 'result-title draw';
-          subtitleEl.textContent = '실력이 비슷하네요!';
+          titleEl.textContent = '💀 패배';
+          titleEl.className = 'result-title lose';
+          subtitleEl.textContent = 'HP가 모두 소진되었습니다...';
         }
       });
 
