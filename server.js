@@ -38,9 +38,14 @@ const MAX_HP = 10;
 const rooms = {};
 
 // ── 라우팅 ────────────────────────────────────────────
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/html/socket_test.html');
-// });
+
+app.get('/index.html', (req, res) => {
+  res.sendFile(__dirname + '/html/index.html');
+});
+
+app.get('/html/joinForm.html', (req, res) => {
+  res.sendFile(__dirname + '/html/joinForm.html');
+});
 
 app.get('/quiz', (req, res) => {
   res.sendFile(__dirname + '/html/quiz.html');
@@ -167,7 +172,8 @@ io.on('connection', (socket) => {
     room.answers[socket.id] = answer;
 
     // 정답 체크
-    const correctAnswer = quizData[room.currentQuestion % quizData.length].answer;
+    const correctAnswer =
+      quizData[room.currentQuestion % quizData.length].answer;
     const isCorrect = answer === correctAnswer;
     if (isCorrect) {
       room.scores[socket.id]++;
