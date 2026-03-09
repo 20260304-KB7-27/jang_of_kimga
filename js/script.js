@@ -186,7 +186,7 @@ if (typeof io !== 'undefined') {
     });
 
     // 정답 표시
-    buttons[data.correctAnswer].classList.add('correct');
+    buttons[data.correctAnswer - 1].classList.add('correct');
 
     // HP 업데이트
     if (data.hp) {
