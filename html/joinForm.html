@@ -57,7 +57,7 @@
       </div>
 
       <!-- 1) 방 입장 화면 -->
-      <div class ="inform" id="room-selection">
+      <div class="inform" id="room-selection">
         <h1 class="title">팀 로그인</h1>
         <p class="sub-title">팀 이름</p>
         <input
@@ -71,24 +71,10 @@
           id="room-input"
           placeholder="방 이름 입력 (예: room1)"
         />
-        <button class="btn-Entry btn-primary" onclick="joinRoom()">입장하기</button>
+        <button class="btn-Entry btn-primary" onclick="joinRoom()">
+          입장하기
+        </button>
       </div>
     </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-
-    
-    // ── 방 입장 (함수 합칠 것 todo) ──────────────────────────────
-      function joinRoom() {
-        const input = document.getElementById('room-input');
-        const roomName = input.value.trim();
-        if (!roomName) return;
-
-        currentRoom = roomName;
-        socket.emit('join room', currentRoom);
-
-        showScreen('waiting-area');
-      }
-    </script>
   </body>
 </html>
