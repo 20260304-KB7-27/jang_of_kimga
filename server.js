@@ -64,6 +64,7 @@ function sendQuestion(roomName) {
     index: room.currentQuestion,
     total: MAX_HP,
     question: q.question,
+    description: q.description,
     options: q.options,
     hp: {
       [p1]: room.hp[p1],

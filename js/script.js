@@ -130,8 +130,12 @@ if (typeof io !== 'undefined') {
     // 진행 상태 업데이트
     document.getElementById('quiz-progress').textContent = `Q${data.index + 1}`;
 
-    // 문제 표시
+    // 문제 표시 + description 표시
     document.getElementById('question-text').textContent = data.question;
+    document.getElementById('question-description').textContent =
+      data.description;
+
+    //description 표시
 
     // 선택지 렌더링
     const optionsEl = document.getElementById('options');
