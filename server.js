@@ -16,13 +16,15 @@ const allQuizData = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'data', 'quiz.json'), 'utf-8'),
 );
 
-// 2. 무작위로 섞는 로직 (HP 소진까지 충분한 문제 확보)
-const getShuffledQuizzes = (data) => {
-  return [...data].sort(() => 0.5 - Math.random());
-};
-
-// 3. 결과 저장 (전체 문제를 섞어서 사용)
-const quizData = getShuffledQuizzes(allQuizData);
+// 무작위로 섞는 로직 (게임 시작 시 방마다 호출)
+function getShuffledQuizzes(data) {
+  const shuffled = [...data];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 // HP 설정
 const MAX_HP = 3;
@@ -56,8 +58,8 @@ app.get('/quiz', (req, res) => {
 function sendQuestion(roomName) {
   const room = rooms[roomName];
   // 문제 인덱스가 전체 문제 수를 넘으면 순환
-  const qIndex = room.currentQuestion % quizData.length;
-  const q = quizData[qIndex];
+  const qIndex = room.currentQuestion % room.quizData.length;
+  const q = room.quizData[qIndex];
 
   const [p1, p2] = room.players;
 
@@ -146,6 +148,7 @@ io.on('connection', (socket) => {
         hp: {},
         currentQuestion: 0,
         answers: {},
+        quizData: [],  // 게임 시작 시 셔플하여 채움
       };
     }
 
@@ -174,11 +177,14 @@ io.on('connection', (socket) => {
     // 2명이 모이면 게임 시작
     if (room.players.length === 2) {
       console.log(`[${roomName}] 게임 시작!`);
-      // 팀명 추가 0310
+
+      // 게임 시작 시 문제를 새로 셔플
+      room.quizData = getShuffledQuizzes(allQuizData);
+
       const [p1, p2] = room.players;
 
       io.to(roomName).emit('game start', {
-        totalQuestions: quizData.length,
+        totalQuestions: room.quizData.length,
 
         teams: {
           [p1]: room.teams[p1],
@@ -206,7 +212,7 @@ io.on('connection', (socket) => {
 
     // 정답 체크
     const correctAnswer =
-      quizData[room.currentQuestion % quizData.length].answer;
+      room.quizData[room.currentQuestion % room.quizData.length].answer;
     const isCorrect = answer === correctAnswer;
     if (isCorrect) {
       room.scores[socket.id]++;
