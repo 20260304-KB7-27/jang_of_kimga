@@ -210,6 +210,7 @@ if (typeof io !== 'undefined') {
   });
 
   // ── 소켓 이벤트: 게임 종료 ────────────────
+  // ── 소켓 이벤트: 게임 종료 ────────────────
   socket.on('game over', (data) => {
     showScreen('result-area');
 
@@ -225,23 +226,34 @@ if (typeof io !== 'undefined') {
     document.getElementById('my-final-hp').textContent = myFinalHp;
     document.getElementById('opponent-final-hp').textContent = opponentFinalHp;
 
-    const titleEl = document.getElementById('result-title');
-    const subtitleEl = document.getElementById('result-subtitle');
+    // 팀명 표시
+    const myTeamEl = document.getElementById('my-team-name-result');
+    const opponentTeamEl = document.getElementById('opponent-team-name-result');
+
+    if (myTeamEl) myTeamEl.textContent = teamFromUrl || '내 팀';
+    if (opponentTeamEl) opponentTeamEl.textContent = '상대 팀';
+
+    // 결과 박스 표시
+    const resultBox = document.getElementById('result-box');
+    const resultIcon = document.getElementById('result-icon');
+    const resultText = document.getElementById('result-text');
+
+    resultBox.classList.remove('win', 'lose');
 
     if (data.winnerId === myId) {
-      titleEl.textContent = '🎉 승리!';
-      titleEl.className = 'result-title win';
-      subtitleEl.textContent = '상대방을 처치했습니다!';
+      resultIcon.textContent = '🏆';
+      resultText.textContent = 'WIN';
+      resultBox.classList.add('win');
     } else {
-      titleEl.textContent = '💀 패배';
-      titleEl.className = 'result-title lose';
-      subtitleEl.textContent = 'HP가 모두 소진되었습니다...';
+      resultIcon.textContent = '💀';
+      resultText.textContent = 'LOSE';
+      resultBox.classList.add('lose');
     }
   });
 
   // ── 소켓 이벤트: 상대방 퇴장 ──────────────
   socket.on('opponent left', () => {
-    showNotification('상대방이 나갔습니다', 3000);
+    showNotification('상대방이 나갔습니다🏃', 3000);
     setTimeout(() => location.reload(), 2000);
   });
 }

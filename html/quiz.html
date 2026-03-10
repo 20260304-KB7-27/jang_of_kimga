@@ -104,35 +104,47 @@
         </div>
       </div>
 
-      <!-- 4) 결과 화면 -->
-      <div id="result-area">
-        <div class="result-title" id="result-title"></div>
-        <div class="result-subtitle" id="result-subtitle"></div>
-        <div class="scoreboard">
-          <div class="score-card me">
-            <div class="score-label">나</div>
-            <div class="score-value">
-              <span>❤️ <span id="my-final-hp">0</span></span>
-              <span class="score-sub"
-                >맞춘 수: <span id="my-score">0</span></span
-              >
-            </div>
+<!-- 4) 결과 화면 -->
+<div id="result-area">
+  <div class="result-panel">
+    <div class="result-main-row">
+      <!-- 왼쪽: 내 결과 -->
+      <div class="result-box" id="result-box">
+        <div class="result-glow"></div>
+        <div class="result-icon" id="result-icon">🏆</div>
+        <div class="result-text" id="result-text">WIN</div>
+      </div>
+
+      <!-- 오른쪽: 상세 정보 -->
+      <div class="result-info-area">
+        <div class="result-info-card">
+          <div class="result-card-head">
+            <span class="result-card-title">나</span>
+            <span class="result-chip me">PLAYER</span>
           </div>
-          <div class="score-card opponent">
-            <div class="score-label">상대</div>
-            <div class="score-value">
-              <span>❤️ <span id="opponent-final-hp">0</span></span>
-              <span class="score-sub"
-                >맞춘 수: <span id="opponent-score">0</span></span
-              >
-            </div>
-          </div>
+          <div class="result-info-team" id="my-team-name-result">Team1</div>
+          <div class="result-info-hp">❤️ <span id="my-final-hp">0</span></div>
+          <div class="result-info-score">맞춘 문제 수: <span id="my-score">0</span></div>
         </div>
-        <button class="btn btn-primary" onclick="location.reload()">
-          다시 하기
-        </button>
+
+        <div class="result-info-card">
+          <div class="result-card-head">
+            <span class="result-card-title">상대</span>
+            <span class="result-chip opponent">ENEMY</span>
+          </div>
+          <div class="result-info-team" id="opponent-team-name-result">상대 팀</div>
+          <div class="result-info-hp">❤️ <span id="opponent-final-hp">0</span></div>
+          <div class="result-info-score">맞춘 문제 수: <span id="opponent-score">0</span></div>
+        </div>
       </div>
     </div>
+
+    <div class="result-action-row">
+      <button class="result-btn primary" onclick="location.reload()">다시하기</button>
+      <button class="result-btn secondary" onclick="location.href='/html/joinForm.html'">메인으로</button>
+    </div>
+  </div>
+</div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/script.js"></script>
