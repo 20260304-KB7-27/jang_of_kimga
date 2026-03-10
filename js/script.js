@@ -98,14 +98,14 @@ if (typeof io !== 'undefined') {
     if (target) target.style.display = 'block';
   }
 
-  function showNotification(msg, duration = 2000) {
-    const el = document.getElementById('notification');
-    el.textContent = msg;
-    el.style.display = 'block';
-    setTimeout(() => {
-      el.style.display = 'none';
-    }, duration);
-  }
+  // function showNotification(msg, duration = 2000) {
+  //   const el = document.getElementById('notification');
+  //   el.textContent = msg;
+  //   el.style.display = 'block';
+  //   setTimeout(() => {
+  //     el.style.display = 'none';
+  //   }, duration);
+  // }
 
   // 팀명 노출 0310
 
@@ -138,7 +138,7 @@ if (typeof io !== 'undefined') {
 
   // ── 소켓 이벤트: 게임 시작 ────────────────
   socket.on('game start', (data) => {
-    showNotification('게임 시작!');
+    //showNotification('게임 시작!');
     myScore = 0;
     opponentScore = 0;
     myHp = MAX_HP;

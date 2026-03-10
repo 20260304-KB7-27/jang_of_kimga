@@ -71,6 +71,11 @@ function sendQuestion(roomName) {
       [p1]: room.hp[p1],
       [p2]: room.hp[p2],
     },
+    players: room.players,
+    teams: {
+      [p1]: room.teams[p1],
+      [p2]: room.teams[p2],
+    },
   });
 }
 
