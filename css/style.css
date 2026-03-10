@@ -112,6 +112,7 @@ div > .info-input {
 
 #waiting-area {
   /* display: none; */
+  background-color: #0f172a;
   padding: 40px 20px;
 }
 
