@@ -25,11 +25,12 @@ const getShuffledQuizzes = (data) => {
 const quizData = getShuffledQuizzes(allQuizData);
 
 // HP 설정
-const MAX_HP = 10;
+const MAX_HP = 3;
 
 // ── 방 상태 관리 ──────────────────────────────────────
 // rooms[roomName] = {
 //   players: [socketId, socketId],
+//   teams: { socketId: teamName },
 //   scores: { socketId: number },
 //   hp: { socketId: number },
 //   currentQuestion: number,
@@ -90,6 +91,11 @@ function sendResult(roomName) {
       [p1]: room.hp[p1],
       [p2]: room.hp[p2],
     },
+    // 팀명 추가 0310
+    teams: {
+      [p1]: room.teams[p1],
+      [p2]: room.teams[p2],
+    },
     players: room.players,
     winnerId: winnerId,
     loserId: loserId,
@@ -112,14 +118,15 @@ io.on('connection', (socket) => {
   });
 
   // ── 퀴즈 방 입장 ──────────────────────────────────
-  socket.on('join room', (roomName) => {
+  socket.on('join room', ({ room: roomName, team }) => {
     socket.join(roomName);
     console.log(`${socket.id}님이 [${roomName}] 방에 입장`);
 
-    // 방이 없으면 새로 생성
+    // 방이 없으면 새로 생성 - 팀명 추가 0310
     if (!rooms[roomName]) {
       rooms[roomName] = {
         players: [],
+        teams: {},
         scores: {},
         hp: {},
         currentQuestion: 0,
@@ -138,7 +145,9 @@ io.on('connection', (socket) => {
       return;
     }
 
+    // 팀명추가 0310
     room.players.push(socket.id);
+    room.teams[socket.id] = team || `팀${room.players.length}`;
     room.scores[socket.id] = 0;
     room.hp[socket.id] = MAX_HP;
 
@@ -150,8 +159,16 @@ io.on('connection', (socket) => {
     // 2명이 모이면 게임 시작
     if (room.players.length === 2) {
       console.log(`[${roomName}] 게임 시작!`);
+      // 팀명 추가 0310
+      const [p1, p2] = room.players;
+
       io.to(roomName).emit('game start', {
         totalQuestions: quizData.length,
+
+        teams: {
+          [p1]: room.teams[p1],
+          [p2]: room.teams[p2],
+        },
       });
 
       // 1초 후 첫 문제 전송

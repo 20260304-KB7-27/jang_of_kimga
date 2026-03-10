@@ -23,23 +23,32 @@ if (typeof io !== 'undefined') {
   let currentRoom = '';
   let myScore = 0;
   let opponentScore = 0;
-  let myHp = 10;
-  let opponentHp = 10;
-  const MAX_HP = 10;
+  let myHp = 3;
+  let opponentHp = 3;
+  const MAX_HP = 3;
 
   // URL 파라미터에서 방/팀 정보 읽기 (joinForm에서 전달)
   const urlParams = new URLSearchParams(window.location.search);
   const roomFromUrl = urlParams.get('room');
   const teamFromUrl = urlParams.get('team');
 
+  // 팀명 노출 0310
+
   if (roomFromUrl) {
     currentRoom = roomFromUrl;
-    socket.emit('join room', currentRoom);
+
+    socket.emit('join room', {
+      room: currentRoom,
+      team: teamFromUrl,
+    });
 
     const waitingRoomEl = document.getElementById('waiting-room-name');
     const waitingTeamEl = document.getElementById('waiting-team-name');
     if (waitingRoomEl) waitingRoomEl.textContent = roomFromUrl;
     if (waitingTeamEl) waitingTeamEl.textContent = teamFromUrl || '';
+
+    // 우선 내 팀명만 먼저 반영
+    updateTeamLabels(teamFromUrl || '나', '상대');
   } else {
     window.location.href = '/html/joinForm.html';
   }
@@ -98,6 +107,24 @@ if (typeof io !== 'undefined') {
     }, duration);
   }
 
+  // 팀명 노출 0310
+
+  function updateTeamLabels(myTeamName, opponentTeamName = '상대') {
+    const myTeamLabel = document.getElementById('my-team-label');
+    const opponentTeamLabel = document.getElementById('opponent-team-label');
+    const myResultTeamLabel = document.getElementById('my-result-team-label');
+    const opponentResultTeamLabel = document.getElementById(
+      'opponent-result-team-label',
+    );
+
+    if (myTeamLabel) myTeamLabel.textContent = myTeamName || '나';
+    if (opponentTeamLabel)
+      opponentTeamLabel.textContent = opponentTeamName || '상대';
+    if (myResultTeamLabel) myResultTeamLabel.textContent = myTeamName || '나';
+    if (opponentResultTeamLabel)
+      opponentResultTeamLabel.textContent = opponentTeamName || '상대';
+  }
+
   // ── 소켓 이벤트: 입장 / 대기 ─────────────
   socket.on('player joined', (data) => {
     showScreen('waiting-area');
@@ -116,6 +143,16 @@ if (typeof io !== 'undefined') {
     opponentScore = 0;
     myHp = MAX_HP;
     opponentHp = MAX_HP;
+
+    if (data.teams) {
+      const myId = socket.id;
+      const opponentId = Object.keys(data.teams).find((id) => id !== myId);
+
+      const myTeamName = data.teams[myId] || teamFromUrl || '나';
+      const opponentTeamName = data.teams[opponentId] || '상대';
+
+      updateTeamLabels(myTeamName, opponentTeamName);
+    }
   });
 
   // ── 소켓 이벤트: 새 문제 ──────────────────
@@ -231,7 +268,7 @@ if (typeof io !== 'undefined') {
     const myTeamEl = document.getElementById('my-team-name-result');
     const opponentTeamEl = document.getElementById('opponent-team-name-result');
 
-    if (myTeamEl) myTeamEl.textContent = teamFromUrl || '내 팀';
+    if (myTeamEl) myTeamEl.textContent = '내 팀';
     if (opponentTeamEl) opponentTeamEl.textContent = '상대 팀';
 
     // 결과 박스 표시
@@ -240,6 +277,16 @@ if (typeof io !== 'undefined') {
     const resultText = document.getElementById('result-text');
 
     resultBox.classList.remove('win', 'lose');
+
+    if (data.teams) {
+      const myId = socket.id;
+      const opponentId = data.players.find((id) => id !== myId);
+
+      const myTeamName = data.teams[myId] || teamFromUrl || '나';
+      const opponentTeamName = data.teams[opponentId] || '상대';
+
+      updateTeamLabels(myTeamName, opponentTeamName);
+    }
 
     if (data.winnerId === myId) {
       resultIcon.textContent = '🏆';
