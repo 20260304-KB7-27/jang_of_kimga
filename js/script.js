@@ -100,6 +100,7 @@ if (typeof io !== 'undefined') {
 
   // ── 소켓 이벤트: 입장 / 대기 ─────────────
   socket.on('player joined', (data) => {
+    showScreen('waiting-area');
     document.getElementById('player-count').textContent = data.playerCount;
   });
 
