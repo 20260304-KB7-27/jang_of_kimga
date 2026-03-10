@@ -106,7 +106,17 @@ function sendResult(roomName) {
     loserId: loserId,
   };
 
+  // 게임 종료 플래그 설정 (disconnect 시 opponent left 방지)
+  room.gameOver = true;
+
   io.to(roomName).emit('game over', result);
+
+  // 모든 플레이어를 Socket.IO 방에서 퇴장시킴
+  // (리로드한 사람이 다시 join해도 상대방에게 이벤트가 가지 않도록)
+  room.players.forEach((pid) => {
+    const playerSocket = io.sockets.sockets.get(pid);
+    if (playerSocket) playerSocket.leave(roomName);
+  });
 
   // 방 정리
   delete rooms[roomName];
@@ -273,7 +283,10 @@ io.on('connection', (socket) => {
     // 게임 중인 방에서 나가면 상대방에게 알림
     for (const [roomName, room] of Object.entries(rooms)) {
       if (room.players.includes(socket.id)) {
-        io.to(roomName).emit('opponent left');
+        // 게임이 이미 끝났으면 opponent left를 보내지 않음
+        if (!room.gameOver) {
+          io.to(roomName).emit('opponent left');
+        }
         delete rooms[roomName];
         break;
       }
