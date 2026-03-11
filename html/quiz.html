@@ -1,34 +1,31 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1:1 퀴즈 대결</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1:1 퀴즈 대결</title>
 
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet" />
 
-  <body>
-    <header>
-      <div id="header">
-        <div class="logo-area">
-          <img src="../assets/images/quiz.png" />
-          <span>QUIZ BATTLE</span>
-        </div>
-        <span class="user-name">김家네 장씨</span>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <header>
+    <div id="header">
+      <div class="logo-area">
+        <img src="../assets/images/quiz.png" />
+        <span>QUIZ BATTLE</span>
       </div>
-    </header>
+      <span class="user-name">김家네 장씨</span>
+    </div>
+  </header>
 
-    <div class="container">
-      <!-- <div id="notification"></div> -->
-      <!-- 알림 -->
+  <div class="container">
+    <div id="notification"></div>
 
-      <!-- 2) 대기 화면 
+    <!-- 2) 대기 화면 
       <div id="waiting-area">
         <div class="waiting-text">상대방을 기다리는 중...</div>
         <div class="spinner"></div>
@@ -39,138 +36,130 @@
 
       -->
 
-      <!-- 0306 재한 -->
-      <div id="waiting-area">
-        <div class="waiting-card">
-          <h2 class="waiting-title">상대방을 기다리는 중...</h2>
-          <p class="waiting-desc">
-            두 팀이 모두 입장하면 자동으로 게임이 시작됩니다.
-          </p>
+    <!-- 0306 재한 -->
+    <div id="waiting-area">
+      <div class="waiting-card">
+        <h2 class="waiting-title">상대방을 기다리는 중...</h2>
+        <p class="waiting-desc">
+          두 팀이 모두 입장하면 자동으로 게임이 시작됩니다.
+        </p>
 
-          <div class="spinner"></div>
+        <div class="spinner"></div>
 
-          <div class="waiting-info-box">
-            <div class="waiting-row">
-              <span class="label">방 이름</span>
-              <span class="value" id="waiting-room-name">room1</span>
-            </div>
-            <div class="waiting-row">
-              <span class="label">참가 인원</span>
-              <span class="value"><span id="player-count">1</span> / 2명</span>
-            </div>
-            <div class="waiting-row">
-              <span class="label">내 팀명</span>
-              <span class="value" id="waiting-team-name">team1</span>
-            </div>
-            <div class="waiting-row">
-              <span class="label">상태</span>
-              <span class="value status" id="waiting-status"
-                >상대방 입장 대기</span
-              >
-            </div>
+        <div class="waiting-info-box">
+          <div class="waiting-row">
+            <span class="label">방 이름</span>
+            <span class="value" id="waiting-room-name">room1</span>
           </div>
-        </div>
-      </div>
-
-      <!-- -->
-
-      <!-- 3) 퀴즈 화면 -->
-      <div id="quiz-area">
-        <!-- HP 바 영역 -->
-        <div class="hp-container">
-          <div class="hp-player">
-            <span class="hp-label" id="my-team-label">나</span>
-            <div class="hp-bar-wrapper">
-              <div class="hp-bar my-hp-bar" id="my-hp-bar"></div>
-            </div>
-            <span class="hp-text" id="my-hp-text"></span>
+          <div class="waiting-row">
+            <span class="label">참가 인원</span>
+            <span class="value"><span id="player-count">1</span> / 2명</span>
           </div>
-          <div class="hp-vs">VS</div>
-          <div class="hp-player">
-            <span class="hp-label" id="opponent-team-label">상대</span>
-            <div class="hp-bar-wrapper">
-              <div class="hp-bar opponent-hp-bar" id="opponent-hp-bar"></div>
-            </div>
-            <span class="hp-text" id="opponent-hp-text"></span>
+          <div class="waiting-row">
+            <span class="label">내 팀명</span>
+            <span class="value" id="waiting-team-name">team1</span>
           </div>
-        </div>
-
-        <div class="question-card">
-          <span class="quiz-progress" id="quiz-progress">Q1.</span>
-          <span class="question-text" id="question-text"></span>
-          <div class="question-description" id="question-description"></div>
-          <div class="options" id="options"></div>
-          <div class="waiting-opponent" id="waiting-opponent"></div>
-        </div>
-      </div>
-
-      <!-- 4) 결과 화면 -->
-      <div id="result-area">
-        <div class="result-panel">
-          <div class="result-main-row">
-            <!-- 왼쪽: 내 결과 -->
-            <div class="result-box" id="result-box">
-              <div class="result-glow"></div>
-              <div class="result-icon" id="result-icon">🏆</div>
-              <div class="result-text" id="result-text">WIN</div>
-            </div>
-
-            <!-- 오른쪽: 상세 정보 -->
-            <div class="result-info-area">
-              <div class="result-info-card">
-                <div class="result-card-head">
-                  <span class="result-card-title" id="my-team-name-result"
-                    >나</span
-                  >
-                  <span class="result-chip me">PLAYER</span>
-                </div>
-                <div class="result-info-team" id="my-result-team-label">
-                  Team1
-                </div>
-                <div class="result-info-hp">
-                  ❤️ <span id="my-final-hp">0</span>
-                </div>
-                <div class="result-info-score">
-                  맞춘 문제 수: <span id="my-score">0</span>
-                </div>
-              </div>
-
-              <div class="result-info-card">
-                <div class="result-card-head">
-                  <span class="result-card-title" id="opponent-team-name-result"
-                    >상대</span
-                  >
-                  <span class="result-chip opponent">ENEMY</span>
-                </div>
-                <div class="result-info-team" id="opponent-result-team-label">
-                  상대 팀
-                </div>
-                <div class="result-info-hp">
-                  ❤️ <span id="opponent-final-hp">0</span>
-                </div>
-                <div class="result-info-score">
-                  맞춘 문제 수: <span id="opponent-score">0</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="result-action-row">
-            <button class="result-btn primary" onclick="location.reload()">
-              다시하기
-            </button>
-            <button
-              class="result-btn secondary"
-              onclick="location.href = '/html/joinForm.html'"
-            >
-              메인으로
-            </button>
+          <div class="waiting-row">
+            <span class="label">상태</span>
+            <span class="value status" id="waiting-status">상대방 입장 대기</span>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/script.js"></script>
-  </body>
+    <!-- -->
+
+    <!-- 3) 퀴즈 화면 -->
+    <div id="quiz-area">
+      <!-- HP 바 영역 -->
+      <div class="hp-container">
+        <div class="hp-player">
+          <span class="hp-label" id="my-team-label">나</span>
+          <div class="hp-bar-wrapper">
+            <div class="hp-bar my-hp-bar" id="my-hp-bar"></div>
+          </div>
+          <span class="hp-text" id="my-hp-text"></span>
+        </div>
+        <div class="hp-vs">VS</div>
+        <div class="hp-player">
+          <span class="hp-label" id="opponent-team-label">상대</span>
+          <div class="hp-bar-wrapper">
+            <div class="hp-bar opponent-hp-bar" id="opponent-hp-bar"></div>
+          </div>
+          <span class="hp-text" id="opponent-hp-text"></span>
+        </div>
+      </div>
+
+      <div class="question-card">
+        <span class="quiz-progress" id="quiz-progress">Q1.</span>
+        <span class="question-text" id="question-text"></span>
+        <div class="question-description" id="question-description"></div>
+        <div class="options" id="options"></div>
+        <div class="waiting-opponent" id="waiting-opponent"></div>
+      </div>
+    </div>
+
+    <!-- 4) 결과 화면 -->
+    <div id="result-area">
+      <div class="result-panel">
+        <div class="result-main-row">
+          <!-- 왼쪽: 내 결과 -->
+          <div class="result-box" id="result-box">
+            <div class="result-glow"></div>
+            <div class="result-icon" id="result-icon">🏆</div>
+            <div class="result-text" id="result-text">WIN</div>
+          </div>
+
+          <!-- 오른쪽: 상세 정보 -->
+          <div class="result-info-area">
+            <div class="result-info-card">
+              <div class="result-card-head">
+                <span class="result-card-title" id="my-team-name-result">나</span>
+                <span class="result-chip me">PLAYER</span>
+              </div>
+              <div class="result-info-team" id="my-result-team-label">
+                Team1
+              </div>
+              <div class="result-info-hp">
+                ❤️ <span id="my-final-hp">0</span>
+              </div>
+              <div class="result-info-score">
+                맞춘 문제 수: <span id="my-score">0</span>
+              </div>
+            </div>
+
+            <div class="result-info-card">
+              <div class="result-card-head">
+                <span class="result-card-title" id="opponent-team-name-result">상대</span>
+                <span class="result-chip opponent">ENEMY</span>
+              </div>
+              <div class="result-info-team" id="opponent-result-team-label">
+                상대 팀
+              </div>
+              <div class="result-info-hp">
+                ❤️ <span id="opponent-final-hp">0</span>
+              </div>
+              <div class="result-info-score">
+                맞춘 문제 수: <span id="opponent-score">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-action-row">
+          <button class="result-btn primary" onclick="location.reload()">
+            다시하기
+          </button>
+          <button class="result-btn secondary" onclick="location.href = '/html/joinForm.html'">
+            메인으로
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+
 </html>
