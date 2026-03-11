@@ -23,9 +23,9 @@ if (typeof io !== 'undefined') {
   let currentRoom = '';
   let myScore = 0;
   let opponentScore = 0;
-  let myHp = 3;
-  let opponentHp = 3;
-  const MAX_HP = 3;
+  let myHp = 5;
+  let opponentHp = 5;
+  const MAX_HP = 5;
 
   // URL 파라미터에서 방/팀 정보 읽기 (joinForm에서 전달)
   const urlParams = new URLSearchParams(window.location.search);

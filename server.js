@@ -27,7 +27,7 @@ function getShuffledQuizzes(data) {
 }
 
 // HP 설정
-const MAX_HP = 3;
+const MAX_HP = 5;
 
 // ── 방 상태 관리 ──────────────────────────────────────
 // rooms[roomName] = {
@@ -148,7 +148,7 @@ io.on('connection', (socket) => {
         hp: {},
         currentQuestion: 0,
         answers: {},
-        quizData: [],  // 게임 시작 시 셔플하여 채움
+        quizData: [], // 게임 시작 시 셔플하여 채움
       };
     }
 
