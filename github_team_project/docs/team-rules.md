@@ -1,7 +1,5 @@
 # 📌 Team Rules & Convention
 
----
-
 ## 🔹 브랜치 규칙
 
 - main 브랜치 직접 push ❌
